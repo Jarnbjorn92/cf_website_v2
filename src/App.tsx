@@ -6,6 +6,7 @@ import About from "./containers/About";
 import Portfolio from "./containers/Portfolio";
 import Contact from "./containers/Contact";
 import "./App.css";
+import Home from "./containers/Home";
 
 const appTheme = createTheme({
   palette: {
@@ -25,15 +26,13 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={appTheme}>
       <Router>
-        <div className="App">
-          <header className="App-header"></header>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/landing" element={<LandingPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
-        </div>
       </Router>
     </ThemeProvider>
   );

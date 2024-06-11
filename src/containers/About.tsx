@@ -1,9 +1,18 @@
-import React from 'react'
+import { Stack } from "@mui/material";
+import React from "react";
 
 const About: React.FC = () => {
   return (
-    <div>About</div>
-  )
-}
+    <Stack
+      sx={{
+        height: "100vh",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div>About</div>
+    </Stack>
+  );
+};
 
-export default About
+export default About;
