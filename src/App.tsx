@@ -41,12 +41,12 @@ const darkTheme = createTheme({
 
 const App: React.FC = () => {
   // STATE
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   // FUNCTIONS
-  const handleThemeChange = () => {
+  const handleThemeChange = (): void => {
     setDarkMode(!darkMode);
-  };
+  }; 
 
   // COMPONENT RENDER ---------------------------------------
   return (
