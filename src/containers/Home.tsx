@@ -6,11 +6,9 @@ import github from "react-useanimations/lib/github";
 import linkedin from "react-useanimations/lib/linkedin";
 import { useTheme } from "@mui/material/styles";
 
-const LandingPage: React.FC = () => {
-  // Get the current theme
+const Home: React.FC = () => {
   const theme = useTheme();
 
-  // COMPONENT RENDER--------------------------
   return (
     <Stack
       sx={{
@@ -27,11 +25,15 @@ const LandingPage: React.FC = () => {
           animation={github}
           size={56}
           strokeColor={theme.palette.primary.main}
+          autoplay={true}
+          loop={true}
         />
         <UseAnimations
           animation={linkedin}
           size={56}
           strokeColor={theme.palette.primary.main}
+          autoplay={true}
+          loop={true}
         />
       </Stack>
       <Button
@@ -46,4 +48,4 @@ const LandingPage: React.FC = () => {
   );
 };
 
-export default LandingPage;
+export default Home;
