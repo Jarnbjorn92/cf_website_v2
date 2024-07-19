@@ -7,7 +7,14 @@ import Footer from "../components/Footer";
 
 const LandingPage: React.FC = () => {
   return (
-    <Stack>
+    <Stack
+      sx={{
+        minHeight: "100vh",
+        padding: 2,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <About />
       <Portfolio />
       <Contact />

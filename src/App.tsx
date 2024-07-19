@@ -41,12 +41,12 @@ const darkTheme = createTheme({
 
 const App: React.FC = () => {
   // STATE
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(true);
 
   // FUNCTIONS
   const handleThemeChange = (): void => {
     setDarkMode(!darkMode);
-  }; 
+  };
 
   // COMPONENT RENDER ---------------------------------------
   return (
@@ -58,7 +58,7 @@ const App: React.FC = () => {
       />
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home darkMode={darkMode} />} />
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/portfolio" element={<Portfolio />} />
