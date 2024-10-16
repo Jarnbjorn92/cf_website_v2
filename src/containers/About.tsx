@@ -67,7 +67,7 @@ const About: React.FC = () => {
               >
                 <Avatar
                   alt="Connor"
-                  src="/path/to/your/image.jpg"
+                  src={profileImage}
                   sx={{
                     width: 200,
                     height: 200,
