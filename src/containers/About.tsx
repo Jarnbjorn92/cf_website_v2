@@ -11,6 +11,7 @@ import {
   Paper,
   Avatar,
 } from "@mui/material";
+import profileImage from '../assets/me.jpeg'
 
 const skills = {
   "Programming Languages": ["JavaScript", "TypeScript", "Python", "Java"],
@@ -68,7 +69,7 @@ const About: React.FC = () => {
               <Grid item md={4} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Avatar
                   alt="Your Name"
-                  src="/path/to/your/image.jpg"
+                  src={profileImage}
                   sx={{
                     width: 250,
                     height: 250,
