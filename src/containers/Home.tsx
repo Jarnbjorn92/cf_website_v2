@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Stack, Button, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import UseAnimations from "react-useanimations";
 import github from "react-useanimations/lib/github";
 import linkedin from "react-useanimations/lib/linkedin";
 import { useTheme } from "@mui/material/styles";
-import BlobBackground from "../components/BlobBackground";
+import ParticleBackground from "../components/ParticleBackground";
+import * as THREE from 'three';
 
 interface HomeProps {
   darkMode: boolean;
@@ -13,10 +14,27 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ darkMode }) => {
   const theme = useTheme();
+  const [scrollColor, setScrollColor] = useState(new THREE.Color(0x0000ff));
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercentage = scrollPosition / maxScroll;
+
+      // Interpolate between blue and red based on scroll position
+      const r = Math.min(scrollPercentage * 2, 1);
+      const b = Math.max(1 - scrollPercentage * 2, 0);
+      setScrollColor(new THREE.Color(r, 0, b));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      {/* <BlobBackground darkMode={darkMode} /> */}
+      <ParticleBackground color={scrollColor} />
       <Stack
         sx={{
           minHeight: "100vh",
