@@ -63,15 +63,12 @@ const AnimatedRoutes = () => {
 };
 
 const App: React.FC = () => {
-  // STATE
   const [darkMode, setDarkMode] = useState<boolean>(true);
 
-  // FUNCTIONS
   const handleThemeChange = (): void => {
     setDarkMode(!darkMode);
   };
 
-  // COMPONENT RENDER ---------------------------------------
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />

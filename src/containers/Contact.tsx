@@ -12,7 +12,7 @@ import {
 
 const Contact: React.FC = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box
@@ -31,12 +31,17 @@ const Contact: React.FC = () => {
           width: "100%",
           m: isMobile ? 0 : 2,
           p: isMobile ? 2 : 4,
-          backgroundColor: theme.palette.mode === 'light'
-            ? 'rgba(255, 255, 255, 1)'
-            : 'rgba(0, 0, 0, 1)',
+          backgroundColor:
+            theme.palette.mode === "light"
+              ? "rgba(255, 255, 255, 1)"
+              : "rgba(0, 0, 0, 1)",
         }}
       >
-        <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
+        <Typography
+          variant={isMobile ? "h5" : "h4"}
+          align="center"
+          gutterBottom
+        >
           Contact Me
         </Typography>
         <form>
@@ -57,7 +62,12 @@ const Contact: React.FC = () => {
               rows={isMobile ? 3 : 4}
               required
             />
-            <Button variant="contained" color="primary" type="submit" fullWidth={isMobile}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              fullWidth={isMobile}
+            >
               Send Message
             </Button>
           </Stack>
