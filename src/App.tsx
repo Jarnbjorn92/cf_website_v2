@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline, IconButton } from "@mui/material";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import LandingPage from "./containers/LandingPage";
 import About from "./containers/About";
 import Portfolio from "./containers/Portfolio";
@@ -73,10 +78,10 @@ const App: React.FC = () => {
       <IconButton
         onClick={handleThemeChange}
         style={{
-          position: 'fixed',
-          top: '30px',
-          right: '30px',
-          zIndex: 1000
+          position: "fixed",
+          top: "30px",
+          right: "30px",
+          zIndex: 1000,
         }}
       >
         {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}

@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import * as THREE from 'three';
+import React, { useRef, useEffect } from "react";
+import * as THREE from "three";
 
 interface ParticleBackgroundProps {
   color: THREE.Color;
@@ -20,7 +20,12 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
 
     // Setup scene
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
     const renderer = new THREE.WebGLRenderer({ alpha: true });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -42,17 +47,17 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       velocities[i + 2] = (Math.random() - 0.5) * 0.01;
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
     // Create a circular texture for rounded particles
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = 32;
     canvas.height = 32;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (ctx) {
       const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, 'rgba(255,255,255,1)');
-      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+      gradient.addColorStop(0, "rgba(255,255,255,1)");
+      gradient.addColorStop(1, "rgba(255,255,255,0)");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 32, 32);
     }
@@ -82,7 +87,8 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
     // Animation function
     const animate = () => {
       if (pointsRef.current) {
-        const positions = pointsRef.current.geometry.attributes.position.array as Float32Array;
+        const positions = pointsRef.current.geometry.attributes.position
+          .array as Float32Array;
         for (let i = 0; i < positions.length; i += 3) {
           positions[i] += velocities[i];
           positions[i + 1] += velocities[i + 1];
@@ -116,10 +122,10 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
@@ -129,12 +135,20 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
 
   // Update color when it changes
   useEffect(() => {
-    if (pointsRef.current && pointsRef.current.material instanceof THREE.PointsMaterial) {
+    if (
+      pointsRef.current &&
+      pointsRef.current.material instanceof THREE.PointsMaterial
+    ) {
       pointsRef.current.material.color = color;
     }
   }, [color]);
 
-  return <div ref={mountRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: -1 }} />;
+  return (
+    <div
+      ref={mountRef}
+      style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }}
+    />
+  );
 };
 
 export default ParticleBackground;

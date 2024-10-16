@@ -14,7 +14,9 @@ const BlobBackground: React.FC<BlobBackgroundProps> = ({ darkMode }) => {
       blob.style.width = `${size}px`;
       blob.style.height = `${size}px`;
       blob.style.left = `${Math.random() * 100}%`;
-      blob.style.background = darkMode ? "rgba(144, 202, 249, 0.6)" : "rgba(255, 165, 0, 0.6)"; // Change color based on dark mode
+      blob.style.background = darkMode
+        ? "rgba(144, 202, 249, 0.6)"
+        : "rgba(255, 165, 0, 0.6)"; // Change color based on dark mode
       blob.style.animationDuration = `${10 + Math.random() * 10}s`; // Random duration for varied animation speeds
       document.body.appendChild(blob);
 

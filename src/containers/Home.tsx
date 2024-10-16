@@ -6,7 +6,7 @@ import github from "react-useanimations/lib/github";
 import linkedin from "react-useanimations/lib/linkedin";
 import { useTheme } from "@mui/material/styles";
 import ParticleBackground from "../components/ParticleBackground";
-import * as THREE from 'three';
+import * as THREE from "three";
 import Transition from "../components/Transition";
 
 interface HomeProps {
