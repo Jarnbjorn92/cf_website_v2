@@ -1,19 +1,23 @@
 import React from "react";
-import { Box, Typography, Card, CardContent, Stack } from "@mui/material";
+import { Box, Typography, Card, CardContent, Stack, useTheme, useMediaQuery } from "@mui/material";
 
 const About: React.FC = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        minHeight: isMobile ? "auto" : "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        py: isMobile ? 4 : 8,
       }}
     >
-      <Card sx={{ maxWidth: 600, m: 2 }}>
+      <Card sx={{ maxWidth: isMobile ? "100%" : 600, m: 2 }}>
         <CardContent>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
             About Me
           </Typography>
           <Typography variant="body1" paragraph>
@@ -25,7 +29,7 @@ const About: React.FC = () => {
           <Typography variant="body1" paragraph>
             My skills include:
           </Typography>
-          <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
             {["JavaScript", "React", "Node.js", "Python", "SQL", "AWS"].map(
               (skill) => (
                 <Typography
@@ -36,6 +40,7 @@ const About: React.FC = () => {
                     color: "white",
                     p: 1,
                     borderRadius: 1,
+                    fontSize: isMobile ? "0.7rem" : "0.875rem",
                   }}
                 >
                   {skill}

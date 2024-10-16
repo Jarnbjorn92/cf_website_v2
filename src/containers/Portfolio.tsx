@@ -6,6 +6,8 @@ import {
   Card,
   CardContent,
   CardMedia,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 const projects = [
@@ -29,23 +31,26 @@ const projects = [
 ];
 
 const Portfolio: React.FC = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
-    <Box sx={{ minHeight: "100vh", py: 4 }}>
-      <Typography variant="h4" align="center" gutterBottom>
+    <Box sx={{ minHeight: isMobile ? "auto" : "100vh", py: isMobile ? 4 : 8 }}>
+      <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
         My Portfolio
       </Typography>
-      <Grid container spacing={3} justifyContent="center">
+      <Grid container spacing={isMobile ? 2 : 3} justifyContent="center">
         {projects.map((project, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card>
               <CardMedia
                 component="img"
-                height="140"
+                height={isMobile ? "120" : "140"}
                 image={project.image}
                 alt={project.title}
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant={isMobile ? "h6" : "h5"} component="div">
                   {project.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

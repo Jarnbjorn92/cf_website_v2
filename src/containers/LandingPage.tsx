@@ -1,5 +1,5 @@
-import { Stack } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import { Container, useMediaQuery, useTheme } from "@mui/material";
 import About from "./About";
 import Portfolio from "./Portfolio";
 import Contact from "./Contact";
@@ -10,6 +10,8 @@ import * as THREE from "three";
 
 const LandingPage: React.FC = () => {
   const [scrollColor, setScrollColor] = useState(new THREE.Color(0x00ffff)); // Light neon blue
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,19 +34,12 @@ const LandingPage: React.FC = () => {
   return (
     <Transition>
       <ParticleBackground color={scrollColor} />
-      <Stack
-        sx={{
-          minHeight: "100vh",
-          padding: 2,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <Container maxWidth={isMobile ? "sm" : "lg"} sx={{ py: isMobile ? 4 : 8 }}>
         <About />
         <Portfolio />
         <Contact />
         <Footer />
-      </Stack>
+      </Container>
     </Transition>
   );
 };
