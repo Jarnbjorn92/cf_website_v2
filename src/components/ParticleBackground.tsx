@@ -11,6 +11,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const pointsRef = useRef<THREE.Points | null>(null);
+  const materialRef = useRef<THREE.PointsMaterial | null>(null);
   const animationFrameId = useRef<number | null>(null);
 
   useEffect(() => {
@@ -83,6 +84,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
     cameraRef.current = camera;
     rendererRef.current = renderer;
     pointsRef.current = points;
+    materialRef.current = material;
 
     // Animation function
     const animate = () => {
@@ -131,15 +133,13 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       }
       mountNode.removeChild(renderer.domElement);
     };
+  // eslint-disable-next-line
   }, []);
 
   // Update color when it changes
   useEffect(() => {
-    if (
-      pointsRef.current &&
-      pointsRef.current.material instanceof THREE.PointsMaterial
-    ) {
-      pointsRef.current.material.color = color;
+    if (materialRef.current) {
+      materialRef.current.color = color;
     }
   }, [color]);
 
