@@ -5,10 +5,11 @@ import Portfolio from "./Portfolio";
 import Contact from "./Contact";
 import Footer from "../components/Footer";
 import ParticleBackground from "../components/ParticleBackground";
+import Transition from "../components/Transition";
 import * as THREE from 'three';
 
 const LandingPage: React.FC = () => {
-  const [scrollColor, setScrollColor] = useState(new THREE.Color(0x0000ff));
+  const [scrollColor, setScrollColor] = useState(new THREE.Color(0x00ffff)); // Light neon blue
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,10 +17,11 @@ const LandingPage: React.FC = () => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercentage = scrollPosition / maxScroll;
 
-      // Interpolate between blue and red based on scroll position
-      const r = Math.min(scrollPercentage * 2, 1);
-      const b = Math.max(1 - scrollPercentage * 2, 0);
-      setScrollColor(new THREE.Color(r, 0, b));
+      // Interpolate between light neon blue and neon purple based on scroll position
+      const r = 0 + scrollPercentage * 0.5;
+      const g = 1 - scrollPercentage * 1;
+      const b = 1;
+      setScrollColor(new THREE.Color(r, g, b));
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -27,7 +29,7 @@ const LandingPage: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <Transition>
       <ParticleBackground color={scrollColor} />
       <Stack
         sx={{
@@ -42,7 +44,7 @@ const LandingPage: React.FC = () => {
         <Contact />
         <Footer />
       </Stack>
-    </>
+    </Transition>
   );
 };
 
