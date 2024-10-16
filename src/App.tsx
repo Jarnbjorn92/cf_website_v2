@@ -36,7 +36,7 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#90caf9",
+      main: "#0077ff",
     },
     secondary: {
       main: "#f48fb1",
@@ -79,8 +79,8 @@ const App: React.FC = () => {
         onClick={handleThemeChange}
         style={{
           position: "fixed",
-          top: "30px",
-          right: "30px",
+          top: "20px",
+          right: "20px",
           zIndex: 1000,
         }}
       >

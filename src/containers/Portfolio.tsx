@@ -19,31 +19,34 @@ import {
   CardActionArea,
 } from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
+import onaImage from "../assets/Oot'N'Aboot-logo.jpeg";
+import bhImage from "../assets/blackhole.png";
+import ccImage from '../assets/codeclanzo.png';
 
 const projects = [
   {
-    title: "Project 1",
-    description: "A brief description of Project 1 and its key features.",
-    image: "https://via.placeholder.com/300x200",
-    longDescription: "This is a longer description of Project 1. It goes into more detail about the project's goals, challenges faced, and solutions implemented.",
-    githubLink: "https://github.com/yourusername/project1",
-    technologies: ["React", "Node.js", "MongoDB"],
+    title: "Oot'N'Aboot",
+    description: "Tinder for gigs!",
+    image: onaImage,
+    longDescription: "An event finder mobile app. The user can find events happening in a location, favourite events to a list, buy tickets, and even find other users to go with!",
+    githubLink: "https://github.com/Jarnbjorn92/Capstone_OotAndAboot",
+    technologies: ["JavaScript", "React Native", "Java", "Spring Boot", "PostgreSQL"],
   },
   {
-    title: "Project 2",
-    description: "An overview of Project 2, highlighting its main functionalities.",
-    image: "https://via.placeholder.com/300x200",
-    longDescription: "Project 2 was a complex endeavor that involved [specific details]. It showcases my ability to [specific skills].",
-    githubLink: "https://github.com/yourusername/project2",
-    technologies: ["Vue.js", "Express", "PostgreSQL"],
+    title: "The Blackhole",
+    description: "Snakes and ladders... in space!",
+    image: bhImage,
+    longDescription: "Portal themed web game based off of the classic boardgame 'snakes and ladders'. 2-Player game that tracks users scores and provides feedback with a scoreboard.",
+    githubLink: "https://github.com/Jarnbjorn92/Portals",
+    technologies: ["JavaScript", "React", "Express", "MongoDB", "Docker"],
   },
   {
-    title: "Project 3",
-    description: "Details about Project 3, including technologies used and problems solved.",
-    image: "https://via.placeholder.com/300x200",
-    longDescription: "Project 3 was focused on [specific goal]. It required innovative solutions for [specific challenges] and resulted in [specific outcomes].",
-    githubLink: "https://github.com/yourusername/project3",
-    technologies: ["Angular", "Django", "MySQL"],
+    title: "CodeClanzo_",
+    description: "Spending tracker",
+    image: ccImage,
+    longDescription: "Spending tracker app that can create a user, add/display/delete transactions, and provide a total spend for each user.",
+    githubLink: "https://github.com/Jarnbjorn92/CodeClanzo_",
+    technologies: ["Python", "Django", "Flask", "SQL"],
   },
 ];
 
