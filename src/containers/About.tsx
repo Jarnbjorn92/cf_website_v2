@@ -21,6 +21,7 @@ const skills = {
     "Node.js",
     "Express",
     "Django",
+    "Flutter",
     "Spring Boot",
   ],
   "Cloud and Deployment": ["AWS", "Azure", "Docker", "Firebase"],

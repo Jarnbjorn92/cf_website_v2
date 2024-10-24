@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import * as THREE from "three";
 
 interface ParticleBackgroundProps {
@@ -13,6 +13,42 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
   const pointsRef = useRef<THREE.Points | null>(null);
   const materialRef = useRef<THREE.PointsMaterial | null>(null);
   const animationFrameId = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
+  const velocitiesRef = useRef<Float32Array | null>(null);
+  const isAnimatingRef = useRef(true);
+
+  const animate = useCallback((time: number) => {
+    if (!isAnimatingRef.current) return;
+
+    const deltaTime = Math.min(time - lastTimeRef.current, 50);
+    lastTimeRef.current = time;
+
+    if (pointsRef.current && velocitiesRef.current) {
+      const positions = pointsRef.current.geometry.attributes.position.array as Float32Array;
+      const velocities = velocitiesRef.current;
+
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i] += velocities[i] * deltaTime * 0.06;
+        positions[i + 1] += velocities[i + 1] * deltaTime * 0.06;
+        positions[i + 2] += velocities[i + 2] * deltaTime * 0.06;
+
+        // Wrap particles around the edges
+        if (positions[i] < -5) positions[i] = 5;
+        if (positions[i] > 5) positions[i] = -5;
+        if (positions[i + 1] < -5) positions[i + 1] = 5;
+        if (positions[i + 1] > 5) positions[i + 1] = -5;
+        if (positions[i + 2] < -5) positions[i + 2] = 5;
+        if (positions[i + 2] > 5) positions[i + 2] = -5;
+      }
+      pointsRef.current.geometry.attributes.position.needsUpdate = true;
+    }
+
+    if (rendererRef.current && sceneRef.current && cameraRef.current) {
+      rendererRef.current.render(sceneRef.current, cameraRef.current);
+    }
+
+    animationFrameId.current = requestAnimationFrame(animate);
+  }, []);
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -27,14 +63,18 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       0.1,
       1000
     );
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    const renderer = new THREE.WebGLRenderer({ 
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
 
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountNode.appendChild(renderer.domElement);
 
     // Create particles
     const geometry = new THREE.BufferGeometry();
-    const particles = 5000;
+    const particles = 3000;
     const positions = new Float32Array(particles * 3);
     const velocities = new Float32Array(particles * 3);
 
@@ -48,6 +88,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       velocities[i + 2] = (Math.random() - 0.5) * 0.01;
     }
 
+    velocitiesRef.current = velocities;
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
     // Create a circular texture for rounded particles
@@ -86,35 +127,9 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
     pointsRef.current = points;
     materialRef.current = material;
 
-    // Animation function
-    const animate = () => {
-      if (pointsRef.current) {
-        const positions = pointsRef.current.geometry.attributes.position
-          .array as Float32Array;
-        for (let i = 0; i < positions.length; i += 3) {
-          positions[i] += velocities[i];
-          positions[i + 1] += velocities[i + 1];
-          positions[i + 2] += velocities[i + 2];
-
-          // Wrap particles around the edges
-          if (positions[i] < -5) positions[i] = 5;
-          if (positions[i] > 5) positions[i] = -5;
-          if (positions[i + 1] < -5) positions[i + 1] = 5;
-          if (positions[i + 1] > 5) positions[i + 1] = -5;
-          if (positions[i + 2] < -5) positions[i + 2] = 5;
-          if (positions[i + 2] > 5) positions[i + 2] = -5;
-        }
-        pointsRef.current.geometry.attributes.position.needsUpdate = true;
-      }
-
-      if (rendererRef.current && sceneRef.current && cameraRef.current) {
-        rendererRef.current.render(sceneRef.current, cameraRef.current);
-      }
-
-      animationFrameId.current = requestAnimationFrame(animate);
-    };
-
-    animate();
+    // Start animation
+    isAnimatingRef.current = true;
+    animate(0);
 
     const handleResize = () => {
       if (cameraRef.current && rendererRef.current) {
@@ -126,15 +141,28 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
 
     window.addEventListener("resize", handleResize);
 
+    // Add visibility change handler
+    const handleVisibilityChange = () => {
+      isAnimatingRef.current = !document.hidden;
+      if (isAnimatingRef.current) {
+        lastTimeRef.current = performance.now();
+        animate(performance.now());
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
+      isAnimatingRef.current = false;
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
       mountNode.removeChild(renderer.domElement);
     };
-  // eslint-disable-next-line
-  }, []);
+    // eslint-disable-next-line
+  }, [animate]);
 
   // Update color when it changes
   useEffect(() => {
@@ -146,7 +174,13 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
   return (
     <div
       ref={mountRef}
-      style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }}
+      style={{ 
+        position: "fixed", 
+        top: 0, 
+        left: 0, 
+        zIndex: -1,
+        willChange: 'transform' // Optimization for performance
+      }}
     />
   );
 };
