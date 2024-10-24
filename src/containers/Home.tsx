@@ -15,7 +15,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ darkMode }) => {
   const theme = useTheme();
-  const color = new THREE.Color(0x00ffff);
+  const color = new THREE.Color(0x0077ff);
 
   return (
     <Transition>

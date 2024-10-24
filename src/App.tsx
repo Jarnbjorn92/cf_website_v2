@@ -1,58 +1,64 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { CssBaseline, IconButton } from "@mui/material";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import { alpha, CssBaseline, IconButton } from "@mui/material";
 import LandingPage from "./containers/LandingPage";
 import About from "./containers/About";
 import Portfolio from "./containers/Portfolio";
 import Contact from "./containers/Contact";
 import Home from "./containers/Home";
+import Menu from "./components/Menu";
 import "./App.css";
 import { AnimatePresence } from "framer-motion";
+import { darkTheme, lightTheme } from './theme';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#1976d2",
-    },
-    secondary: {
-      main: "#dc004e",
-    },
-  },
-  typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-  },
-});
+const ConditionalMenu: React.FC<{
+  darkMode: boolean;
+  onThemeToggle: () => void;
+  onNavigate: (section: string) => void;
+}> = ({ darkMode, onThemeToggle, onNavigate }) => {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#0077ff",
-    },
-    secondary: {
-      main: "#f48fb1",
-    },
-  },
-  typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-  },
-});
+  if (isHome) {
+    return (
+      <IconButton
+        onClick={onThemeToggle}
+        sx={{
+          position: "fixed",
+          top: "30px",
+          right: "30px",
+          zIndex: 1000,
+          color: theme => theme.palette.text.primary,
+          background: theme => alpha(theme.palette.background.paper, 0.1),
+          backdropFilter: 'blur(10px)',
+          '&:hover': {
+            background: theme => alpha(theme.palette.background.paper, 0.2),
+          },
+        }}
+      >
+        {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
+    );
+  }
 
-const AnimatedRoutes = () => {
+  return (
+    <Menu 
+      darkMode={darkMode}
+      onThemeToggle={onThemeToggle}
+      onNavigate={onNavigate}
+    />
+  );
+};
+
+const AnimatedRoutes: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home darkMode={true} />} />
+        <Route path="/" element={<Home darkMode={darkMode} />} />
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/portfolio" element={<Portfolio />} />
@@ -69,22 +75,23 @@ const App: React.FC = () => {
     setDarkMode(!darkMode);
   };
 
+  const handleNavigation = (section: string): void => {
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
-      <IconButton
-        onClick={handleThemeChange}
-        style={{
-          position: "fixed",
-          top: "20px",
-          right: "20px",
-          zIndex: 1000,
-        }}
-      >
-        {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-      </IconButton>
       <Router>
-        <AnimatedRoutes />
+        <ConditionalMenu 
+          darkMode={darkMode}
+          onThemeToggle={handleThemeChange}
+          onNavigate={handleNavigation}
+        />
+        <AnimatedRoutes darkMode={darkMode} />
       </Router>
     </ThemeProvider>
   );

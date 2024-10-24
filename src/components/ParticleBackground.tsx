@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import * as THREE from "three";
+import { useTheme } from '@mui/material';
 
 interface ParticleBackgroundProps {
   color: THREE.Color;
@@ -15,11 +16,9 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
   const animationFrameId = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
   const velocitiesRef = useRef<Float32Array | null>(null);
-  const isAnimatingRef = useRef(true);
+  const theme = useTheme();
 
   const animate = useCallback((time: number) => {
-    if (!isAnimatingRef.current) return;
-
     const deltaTime = Math.min(time - lastTimeRef.current, 50);
     lastTimeRef.current = time;
 
@@ -68,13 +67,16 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       powerPreference: 'high-performance'
     });
 
+    // Set renderer background color based on theme
+    renderer.setClearColor(theme.palette.mode === 'dark' ? 0x000000 : 0xffffff, 0);
+
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountNode.appendChild(renderer.domElement);
 
     // Create particles
     const geometry = new THREE.BufferGeometry();
-    const particles = 2000;
+    const particles = 3000;
     const positions = new Float32Array(particles * 3);
     const velocities = new Float32Array(particles * 3);
 
@@ -98,21 +100,23 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
     const ctx = canvas.getContext("2d");
     if (ctx) {
       const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, "rgba(255,255,255,1)");
-      gradient.addColorStop(1, "rgba(255,255,255,0)");
+      gradient.addColorStop(0, theme.palette.mode === 'dark' ? 'rgba(255,255,255,1)' : 'rgba(0,0,0,1)');
+      gradient.addColorStop(1, theme.palette.mode === 'dark' ? 'rgba(255,255,255,0)' : 'rgba(0,0,0,0)');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 32, 32);
     }
+
     const texture = new THREE.Texture(canvas);
     texture.needsUpdate = true;
 
     const material = new THREE.PointsMaterial({
       color,
-      size: 0.1,
+      size: theme.palette.mode === 'dark' ? 0.1 : 0.08,
       map: texture,
       transparent: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
+      opacity: theme.palette.mode === 'dark' ? 1 : 0.7,
     });
 
     const points = new THREE.Points(geometry, material);
@@ -127,8 +131,6 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
     pointsRef.current = points;
     materialRef.current = material;
 
-    // Start animation
-    isAnimatingRef.current = true;
     animate(0);
 
     const handleResize = () => {
@@ -141,46 +143,29 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
 
     window.addEventListener("resize", handleResize);
 
-    // Add visibility change handler
-    const handleVisibilityChange = () => {
-      isAnimatingRef.current = !document.hidden;
-      if (isAnimatingRef.current) {
-        lastTimeRef.current = performance.now();
-        animate(performance.now());
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
     return () => {
-      isAnimatingRef.current = false;
       window.removeEventListener("resize", handleResize);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
       mountNode.removeChild(renderer.domElement);
     };
     // eslint-disable-next-line
-  }, [animate]);
+  }, [animate, theme.palette.mode]);
 
   // Update color when it changes
   useEffect(() => {
     if (materialRef.current) {
       materialRef.current.color = color;
+      materialRef.current.opacity = theme.palette.mode === 'dark' ? 1 : 0.7;
+      materialRef.current.size = theme.palette.mode === 'dark' ? 0.1 : 0.08;
     }
-  }, [color]);
+  }, [color, theme.palette.mode]);
 
   return (
     <div
       ref={mountRef}
-      style={{ 
-        position: "fixed", 
-        top: 0, 
-        left: 0, 
-        zIndex: -1,
-        willChange: 'transform' // Optimization for performance
-      }}
+      style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }}
     />
   );
 };
