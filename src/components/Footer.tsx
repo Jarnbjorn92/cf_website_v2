@@ -21,10 +21,6 @@ const Footer: React.FC = () => {
         py: isMobile ? 1 : 2,
         px: isMobile ? 1 : 2,
         mt: "auto",
-        // backgroundColor: (theme) =>
-        //   theme.palette.mode === "light"
-        //     ? theme.palette.grey[200]
-        //     : theme.palette.grey[800],
       }}
     >
       <Stack
@@ -37,14 +33,14 @@ const Footer: React.FC = () => {
           <IconButton
             color="primary"
             aria-label="GitHub"
-            size={isMobile ? "small" : "medium"}
+            size={isMobile ? "small" : "large"}
           >
             <GitHubIcon />
           </IconButton>
           <IconButton
             color="primary"
             aria-label="LinkedIn"
-            size={isMobile ? "small" : "medium"}
+            size={isMobile ? "small" : "large"}
           >
             <LinkedInIcon />
           </IconButton>

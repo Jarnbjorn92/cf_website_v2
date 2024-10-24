@@ -157,9 +157,6 @@ const About: React.FC = () => {
                         sx={{
                           bgcolor: theme.palette.primary.main,
                           color: "white",
-                          "&:hover": {
-                            bgcolor: theme.palette.primary.dark,
-                          },
                         }}
                       />
                     ))}

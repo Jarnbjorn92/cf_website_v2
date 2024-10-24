@@ -11,22 +11,25 @@ import * as THREE from "three";
 const LandingPage: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const color = new THREE.Color(0x6E44FF); // Deep purple
+  const color = new THREE.Color(0x6e44ff); // Deep purple
 
   return (
     <Transition>
       <ParticleBackground color={color} />
-      <Container maxWidth="lg" sx={{ 
-        py: isMobile ? 4 : 8,
-        px: isMobile ? 2 : 4,
-      }}>
-        <div id="about" style={{ marginTop: '4rem' }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          py: isMobile ? 4 : 8,
+          px: isMobile ? 2 : 4,
+        }}
+      >
+        <div id="about" style={{ marginTop: "4rem" }}>
           <About />
         </div>
-        <div id="portfolio" style={{ marginTop: '4rem' }}>
+        <div id="portfolio" style={{ marginTop: "4rem" }}>
           <Portfolio />
         </div>
-        <div id="contact" style={{ marginTop: '4rem' }}>
+        <div id="contact" style={{ marginTop: "4rem" }}>
           <Contact />
         </div>
         <Footer />

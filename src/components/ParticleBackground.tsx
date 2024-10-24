@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import * as THREE from "three";
-import { useTheme } from '@mui/material';
+import { useTheme } from "@mui/material";
 
 interface ParticleBackgroundProps {
   color: THREE.Color;
@@ -18,12 +18,36 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
   const velocitiesRef = useRef<Float32Array | null>(null);
   const theme = useTheme();
 
+  const createParticleTexture = useCallback((isDark: boolean) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 32;
+    canvas.height = 32;
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+      gradient.addColorStop(
+        0,
+        isDark ? "rgba(255,255,255,1)" : "rgba(0,0,0,1)"
+      );
+      gradient.addColorStop(
+        1,
+        isDark ? "rgba(255,255,255,0)" : "rgba(0,0,0,0)"
+      );
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 32, 32);
+    }
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }, []);
+
   const animate = useCallback((time: number) => {
     const deltaTime = Math.min(time - lastTimeRef.current, 50);
     lastTimeRef.current = time;
 
     if (pointsRef.current && velocitiesRef.current) {
-      const positions = pointsRef.current.geometry.attributes.position.array as Float32Array;
+      const positions = pointsRef.current.geometry.attributes.position
+        .array as Float32Array;
       const velocities = velocitiesRef.current;
 
       for (let i = 0; i < positions.length; i += 3) {
@@ -31,7 +55,6 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
         positions[i + 1] += velocities[i + 1] * deltaTime * 0.06;
         positions[i + 2] += velocities[i + 2] * deltaTime * 0.06;
 
-        // Wrap particles around the edges
         if (positions[i] < -5) positions[i] = 5;
         if (positions[i] > 5) positions[i] = -5;
         if (positions[i + 1] < -5) positions[i + 1] = 5;
@@ -54,7 +77,6 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
 
     const mountNode = mountRef.current;
 
-    // Setup scene
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -62,19 +84,15 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       0.1,
       1000
     );
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      powerPreference: 'high-performance'
+      powerPreference: "high-performance",
     });
-
-    // Set renderer background color based on theme
-    renderer.setClearColor(theme.palette.mode === 'dark' ? 0x000000 : 0xffffff, 0);
 
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountNode.appendChild(renderer.domElement);
 
-    // Create particles
     const geometry = new THREE.BufferGeometry();
     const particles = 3000;
     const positions = new Float32Array(particles * 3);
@@ -93,30 +111,17 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
     velocitiesRef.current = velocities;
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-    // Create a circular texture for rounded particles
-    const canvas = document.createElement("canvas");
-    canvas.width = 32;
-    canvas.height = 32;
-    const ctx = canvas.getContext("2d");
-    if (ctx) {
-      const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, theme.palette.mode === 'dark' ? 'rgba(255,255,255,1)' : 'rgba(0,0,0,1)');
-      gradient.addColorStop(1, theme.palette.mode === 'dark' ? 'rgba(255,255,255,0)' : 'rgba(0,0,0,0)');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, 32, 32);
-    }
-
-    const texture = new THREE.Texture(canvas);
-    texture.needsUpdate = true;
+    const isDark = theme.palette.mode === "dark";
+    const texture = createParticleTexture(isDark);
 
     const material = new THREE.PointsMaterial({
       color,
-      size: theme.palette.mode === 'dark' ? 0.1 : 0.08,
+      size: isDark ? 0.1 : 0.15, // Increased light mode size from 0.08 to 0.15
       map: texture,
       transparent: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      opacity: theme.palette.mode === 'dark' ? 1 : 0.7,
+      opacity: isDark ? 1 : 0.5, // Reduced light mode opacity to compensate for larger size
     });
 
     const points = new THREE.Points(geometry, material);
@@ -124,7 +129,6 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
 
     camera.position.z = 5;
 
-    // Store references
     sceneRef.current = scene;
     cameraRef.current = camera;
     rendererRef.current = renderer;
@@ -151,16 +155,23 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       mountNode.removeChild(renderer.domElement);
     };
     // eslint-disable-next-line
-  }, [animate, theme.palette.mode]);
+  }, []);
 
-  // Update color when it changes
   useEffect(() => {
-    if (materialRef.current) {
+    if (materialRef.current && rendererRef.current) {
+      const isDark = theme.palette.mode === "dark";
+
+      materialRef.current.map?.dispose();
+      materialRef.current.map = createParticleTexture(isDark);
+
+      // Updated size and opacity values
+      materialRef.current.size = isDark ? 0.1 : 0.15; // Increased light mode size
+      materialRef.current.opacity = isDark ? 1 : 0.5; // Adjusted light mode opacity
       materialRef.current.color = color;
-      materialRef.current.opacity = theme.palette.mode === 'dark' ? 1 : 0.7;
-      materialRef.current.size = theme.palette.mode === 'dark' ? 0.1 : 0.08;
+
+      rendererRef.current.setClearColor(isDark ? 0x000000 : 0xffffff, 0);
     }
-  }, [color, theme.palette.mode]);
+  }, [theme.palette.mode, color, createParticleTexture]);
 
   return (
     <div

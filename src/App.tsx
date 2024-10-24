@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { alpha, CssBaseline, IconButton } from "@mui/material";
 import LandingPage from "./containers/LandingPage";
@@ -10,9 +15,9 @@ import Home from "./containers/Home";
 import Menu from "./components/Menu";
 import "./App.css";
 import { AnimatePresence } from "framer-motion";
-import { darkTheme, lightTheme } from './theme';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { darkTheme, lightTheme } from "./theme";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
 const ConditionalMenu: React.FC<{
   darkMode: boolean;
@@ -20,7 +25,7 @@ const ConditionalMenu: React.FC<{
   onNavigate: (section: string) => void;
 }> = ({ darkMode, onThemeToggle, onNavigate }) => {
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const isHome = location.pathname === "/";
 
   if (isHome) {
     return (
@@ -31,11 +36,11 @@ const ConditionalMenu: React.FC<{
           top: "30px",
           right: "30px",
           zIndex: 1000,
-          color: theme => theme.palette.text.primary,
-          background: theme => alpha(theme.palette.background.paper, 0.1),
-          backdropFilter: 'blur(10px)',
-          '&:hover': {
-            background: theme => alpha(theme.palette.background.paper, 0.2),
+          color: (theme) => theme.palette.text.primary,
+          background: (theme) => alpha(theme.palette.background.paper, 0.1),
+          backdropFilter: "blur(10px)",
+          "&:hover": {
+            background: (theme) => alpha(theme.palette.background.paper, 0.2),
           },
         }}
       >
@@ -45,7 +50,7 @@ const ConditionalMenu: React.FC<{
   }
 
   return (
-    <Menu 
+    <Menu
       darkMode={darkMode}
       onThemeToggle={onThemeToggle}
       onNavigate={onNavigate}
@@ -78,7 +83,7 @@ const App: React.FC = () => {
   const handleNavigation = (section: string): void => {
     const element = document.getElementById(section);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -86,7 +91,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <Router>
-        <ConditionalMenu 
+        <ConditionalMenu
           darkMode={darkMode}
           onThemeToggle={handleThemeChange}
           onNavigate={handleNavigation}

@@ -29,25 +29,29 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
           padding: 2,
           overflow: "hidden",
         }}
-        spacing={2}
+        spacing={3}
       >
-        <Typography variant="h3">Connor Fleming</Typography>
-        <Typography variant="h6">Full-Stack Software Developer</Typography>
-        <Stack direction="row" spacing={2}>
-          <UseAnimations
-            animation={github}
-            size={56}
-            strokeColor={theme.palette.primary.main}
-            autoplay={true}
-            loop={true}
-          />
-          <UseAnimations
-            animation={linkedin}
-            size={56}
-            strokeColor={theme.palette.primary.main}
-            autoplay={true}
-            loop={true}
-          />
+        <Typography variant="h2">Connor Fleming</Typography>
+        <Typography variant="h5">Full-Stack Software Developer</Typography>
+        <Stack direction="row" spacing={3}>
+          <Button sx={{ borderRadius: 15 }}>
+            <UseAnimations
+              animation={github}
+              size={56}
+              strokeColor={theme.palette.primary.main}
+              autoplay={true}
+              loop={true}
+            />
+          </Button>
+          <Button sx={{ borderRadius: 15 }}>
+            <UseAnimations
+              animation={linkedin}
+              size={56}
+              strokeColor={theme.palette.primary.main}
+              autoplay={true}
+              loop={true}
+            />
+          </Button>
         </Stack>
         <Button
           variant="contained"
@@ -55,7 +59,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
           component={Link}
           to="/landing"
         >
-          Go to Landing
+          Enter
         </Button>
       </Stack>
     </Transition>

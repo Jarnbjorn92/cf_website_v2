@@ -11,7 +11,7 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#6E44FF', // Deep purple
+      main: '#000000', // Deep purple
     },
     secondary: {
       main: '#FF44E3', // Neon pink
