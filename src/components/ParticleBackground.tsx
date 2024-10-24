@@ -74,7 +74,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
 
     // Create particles
     const geometry = new THREE.BufferGeometry();
-    const particles = 3000;
+    const particles = 2000;
     const positions = new Float32Array(particles * 3);
     const velocities = new Float32Array(particles * 3);
 
