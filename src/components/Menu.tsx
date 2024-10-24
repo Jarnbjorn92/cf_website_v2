@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import MailIcon from '@mui/icons-material/Mail';
@@ -93,12 +92,6 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
                 onChange={onThemeToggle}
               />
             </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem button onClick={() => handleNavigation('home')}>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
           </ListItem>
           <ListItem button onClick={() => handleNavigation('about')}>
             <ListItemIcon>
