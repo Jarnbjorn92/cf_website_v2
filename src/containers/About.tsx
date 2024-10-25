@@ -52,7 +52,7 @@ const About: React.FC = () => {
         px: 2,
       }}
     >
-      <Card sx={{ width: "100%", maxWidth: 1200, mb: 4 }}>
+      <Card sx={{ width: "100%", maxWidth: 1200, mb: 4, px: 5 }}>
         <CardContent>
           <Grid
             container
@@ -85,8 +85,16 @@ const About: React.FC = () => {
                 Hello! I'm a Full-Stack Software Developer passionate about
                 creating efficient and user-friendly applications. With
                 expertise in both front-end and back-end technologies, I strive
-                to build comprehensive solutions that meet modern web
-                development standards.
+                to build comprehensive solutions for modern web
+                development.
+              </Typography>
+              <Typography variant="body1" paragraph>
+                Whether working on a dynamic web app, integrating APIs, or
+                optimizing existing systems, I am committed to delivering code
+                that is clean, maintainable, and scalable. I enjoy collaborating
+                with teams to bring ideas to life, and I believe that the best
+                solutions come from a balance of creativity, technical
+                expertise, and a focus on user experience.
               </Typography>
             </Grid>
             {!isMobile && (

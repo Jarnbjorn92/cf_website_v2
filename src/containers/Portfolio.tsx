@@ -139,6 +139,7 @@ const Portfolio: React.FC = () => {
     "Material-UI",
     "Three.js",
     "Framer Motion",
+    "Docker",
   ];
 
   const handleClickOpen = (project: (typeof projects)[0]) => {
