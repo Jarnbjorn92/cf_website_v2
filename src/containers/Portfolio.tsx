@@ -82,7 +82,7 @@ const ProjectCard: React.FC<{
     };
 
     window.addEventListener("scroll", checkIfCardCentered);
-    checkIfCardCentered(); // Check on mount
+    checkIfCardCentered();
 
     return () => window.removeEventListener("scroll", checkIfCardCentered);
   }, []);

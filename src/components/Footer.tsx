@@ -14,6 +14,10 @@ const Footer: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const handleSocialClick = (url: string) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <Box
       component="footer"
@@ -34,6 +38,7 @@ const Footer: React.FC = () => {
             color="primary"
             aria-label="GitHub"
             size={isMobile ? "small" : "large"}
+            onClick={() => handleSocialClick("https://github.com/Jarnbjorn92")}
           >
             <GitHubIcon />
           </IconButton>
@@ -41,6 +46,9 @@ const Footer: React.FC = () => {
             color="primary"
             aria-label="LinkedIn"
             size={isMobile ? "small" : "large"}
+            onClick={() =>
+              handleSocialClick("https://www.linkedin.com/in/connor-j-fleming/")
+            }
           >
             <LinkedInIcon />
           </IconButton>

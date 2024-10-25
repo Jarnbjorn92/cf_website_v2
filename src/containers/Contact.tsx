@@ -8,71 +8,145 @@ import {
   Paper,
   useTheme,
   useMediaQuery,
+  Grid,
 } from "@mui/material";
+import { CloudDownload } from "@mui/icons-material";
 
 const Contact: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const handleDownloadCV = () => {
+    const cvPath = "/path-to-your-cv.pdf";
+    window.open(cvPath, "_blank");
+  };
+
   return (
     <Box
       sx={{
-        minHeight: isMobile ? "auto" : "100vh",
+        width: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        py: isMobile ? 4 : 8,
       }}
     >
-      <Paper
-        elevation={3}
+      <Grid
+        container
+        spacing={3}
+        justifyContent="center"
         sx={{
-          maxWidth: isMobile ? "100%" : 600,
           width: "100%",
-          m: isMobile ? 0 : 2,
-          p: isMobile ? 2 : 4,
-          backgroundColor:
-            theme.palette.mode === "light"
-              ? "rgba(255, 255, 255, 1)"
-              : "rgba(0, 0, 0, 1)",
         }}
       >
-        <Typography
-          variant={isMobile ? "h5" : "h4"}
-          align="center"
-          gutterBottom
-        >
-          Contact Me
-        </Typography>
-        <form>
-          <Stack spacing={isMobile ? 1 : 2}>
-            <TextField fullWidth label="Name" variant="outlined" required />
-            <TextField
-              fullWidth
-              label="Email"
-              variant="outlined"
-              type="email"
-              required
-            />
-            <TextField
-              fullWidth
-              label="Message"
-              variant="outlined"
-              multiline
-              rows={isMobile ? 3 : 4}
-              required
-            />
+        {/* Contact Form Section */}
+        <Grid item xs={12} md={6}>
+          <Paper
+            elevation={3}
+            sx={{
+              width: "100%",
+              p: isMobile ? 3 : 4,
+              backgroundColor:
+                theme.palette.mode === "light"
+                  ? "rgba(255, 255, 255, 1)"
+                  : "rgba(0, 0, 0, 1)",
+            }}
+          >
+            <Typography
+              variant={isMobile ? "h5" : "h4"}
+              align="center"
+              gutterBottom
+              sx={{ mb: 3 }}
+            >
+              Contact Me
+            </Typography>
+            <form>
+              <Stack spacing={2.5}>
+                <TextField fullWidth label="Name" variant="outlined" required />
+                <TextField
+                  fullWidth
+                  label="Email"
+                  variant="outlined"
+                  type="email"
+                  required
+                />
+                <TextField
+                  fullWidth
+                  label="Message"
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  required
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  fullWidth
+                  size="large"
+                  sx={{ py: 1.5 }}
+                >
+                  Send Message
+                </Button>
+              </Stack>
+            </form>
+          </Paper>
+        </Grid>
+
+        {/* CV Download Section */}
+        <Grid item xs={12} md={6}>
+          <Paper
+            elevation={3}
+            sx={{
+              width: "100%",
+              p: isMobile ? 3 : 4,
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor:
+                theme.palette.mode === "light"
+                  ? "rgba(255, 255, 255, 1)"
+                  : "rgba(0, 0, 0, 1)",
+            }}
+          >
+            <Typography
+              variant={isMobile ? "h5" : "h4"}
+              align="center"
+              gutterBottom
+              sx={{ mb: 3 }}
+            >
+              Download CV
+            </Typography>
+            <Typography
+              variant="body1"
+              align="center"
+              color="textSecondary"
+              sx={{ mb: 4, maxWidth: "500px" }}
+            >
+              Get a copy of my latest curriculum vitae to learn more about my
+              experience and skills.
+            </Typography>
             <Button
               variant="contained"
               color="primary"
-              type="submit"
+              size="large"
+              startIcon={<CloudDownload />}
+              onClick={handleDownloadCV}
               fullWidth={isMobile}
+              sx={{
+                py: 1.5,
+                px: 4,
+                borderRadius: 2,
+                textTransform: "none",
+                fontSize: "1.1rem",
+              }}
             >
-              Send Message
+              Download CV
             </Button>
-          </Stack>
-        </form>
-      </Paper>
+          </Paper>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

@@ -23,10 +23,10 @@ const LandingPage: React.FC = () => {
           px: isMobile ? 2 : 4,
         }}
       >
-        <div id="about" style={{ marginTop: "4rem" }}>
+        <div id="about" style={{ marginTop: "3rem" }}>
           <About />
         </div>
-        <div id="portfolio" style={{ marginTop: "4rem" }}>
+        <div id="portfolio" style={{ marginTop: "3rem" }}>
           <Portfolio />
         </div>
         <div id="contact" style={{ marginTop: "4rem" }}>
