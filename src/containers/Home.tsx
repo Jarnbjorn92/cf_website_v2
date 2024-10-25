@@ -51,10 +51,8 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
   const nameText = useTypewriter("Connor Fleming", 100, 0);
   const roleText = useTypewriter("Full-Stack Software Developer", 100, 0);
 
-  // Handle scroll event
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
-      // Don't trigger if the wheel event originated from the social buttons area
       if (
         socialButtonsRef.current &&
         !socialButtonsRef.current.contains(event.target as Node) &&
@@ -68,10 +66,8 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
     return () => window.removeEventListener("wheel", handleWheel);
   }, [navigate]);
 
-  // Handle mouse/touch events
   useEffect(() => {
     const handleMouseDown = (event: MouseEvent) => {
-      // Don't set touchStart if click originated from social buttons
       if (
         socialButtonsRef.current &&
         !socialButtonsRef.current.contains(event.target as Node)
@@ -81,7 +77,6 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
     };
 
     const handleMouseUp = (event: MouseEvent) => {
-      // Don't navigate if click originated from social buttons
       if (
         socialButtonsRef.current &&
         !socialButtonsRef.current.contains(event.target as Node) &&
@@ -94,7 +89,6 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
     };
 
     const handleTouchStart = (event: TouchEvent) => {
-      // Don't set touchStart if touch originated from social buttons
       if (
         socialButtonsRef.current &&
         !socialButtonsRef.current.contains(event.target as Node)
@@ -104,7 +98,6 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
     };
 
     const handleTouchEnd = (event: TouchEvent) => {
-      // Don't navigate if touch originated from social buttons
       if (
         socialButtonsRef.current &&
         !socialButtonsRef.current.contains(event.target as Node) &&

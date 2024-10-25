@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -74,7 +74,19 @@ const AnimatedRoutes: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
 };
 
 const App: React.FC = () => {
-  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState<boolean>(
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleThemeChange = (event: MediaQueryListEvent): void => {
+      setDarkMode(event.matches);
+    };
+    mediaQuery.addEventListener("change", handleThemeChange);
+    return () => mediaQuery.removeEventListener("change", handleThemeChange);
+  }, []);
 
   const handleThemeChange = (): void => {
     setDarkMode(!darkMode);
@@ -91,11 +103,21 @@ const App: React.FC = () => {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <Router>
-        <ConditionalMenu
-          darkMode={darkMode}
-          onThemeToggle={handleThemeChange}
-          onNavigate={handleNavigation}
-        />
+        <div
+          ref={menuRef}
+          onClick={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
+          onMouseUp={(e) => e.stopPropagation()}
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
+          onWheel={(e) => e.stopPropagation()}
+        >
+          <ConditionalMenu
+            darkMode={darkMode}
+            onThemeToggle={handleThemeChange}
+            onNavigate={handleNavigation}
+          />
+        </div>
         <AnimatedRoutes darkMode={darkMode} />
       </Router>
     </ThemeProvider>
