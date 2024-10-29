@@ -26,7 +26,7 @@ const Contact: React.FC = () => {
   });
 
   const handleDownloadCV = () => {
-    const cvPath = "/path-to-your-cv.pdf";
+    const cvPath = "../ass";
     window.open(cvPath, "_blank");
   };
 

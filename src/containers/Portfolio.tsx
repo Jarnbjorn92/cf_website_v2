@@ -136,10 +136,13 @@ const Portfolio: React.FC = () => {
   const technologies = [
     "React",
     "TypeScript",
+    "Notistack",
     "Material-UI",
     "Three.js",
     "Framer Motion",
     "Docker",
+    "Kubernetes",
+    "Nginx",
   ];
 
   const handleClickOpen = (project: (typeof projects)[0]) => {
