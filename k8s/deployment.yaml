@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: personal-website
-  labels:
-    app: personal-website
 spec:
   replicas: 1
   selector:
@@ -15,28 +13,27 @@ spec:
         app: personal-website
     spec:
       containers:
-        - name: personal-website
-          image: personal-website-v2:latest
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 80
-          resources:
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
-            requests:
-              cpu: "200m"
-              memory: "256Mi"
+      - name: personal-website
+        image: ${DOCKER_USERNAME}/personal-website-v2:latest
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: personal-website-service
+  name: personal-website
 spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
   selector:
     app: personal-website
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer

@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  DOCKER_IMAGE: personal-website-v2
-  KUBERNETES_NAMESPACE: default
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -31,24 +27,16 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/personal-website-v2:latest
 
-    - name: Install kubectl
-      uses: azure/setup-kubectl@v1
-      with:
-        version: 'latest'
-
-    - name: Configure kubectl
-      uses: azure/k8s-set-context@v1
-      with:
-        method: kubeconfig
-        kubeconfig: ${{ secrets.KUBE_CONFIG }}
-      id: kubectl-context
-
+    - name: Create kubeconfig
+      run: |
+        mkdir -p ${HOME}/.kube
+        echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > ${HOME}/.kube/config
+        chmod 600 ${HOME}/.kube/config
+      
     - name: Deploy to Kubernetes
       run: |
-        # Update the deployment image
-        kubectl set image deployment/personal-website personal-website=${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest -n ${{ env.KUBERNETES_NAMESPACE }}
-        
-        # Verify deployment
-        kubectl rollout status deployment/personal-website -n ${{ env.KUBERNETES_NAMESPACE }}
+        kubectl create namespace personal-website --dry-run=client -o yaml | kubectl apply -f -
+        kubectl apply -f k8s/deployment.yaml -n personal-website
+        kubectl rollout status deployment/personal-website -n personal-website
