@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-website
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-website
+  template:
+    metadata:
+      labels:
+        app: react-website
+    spec:
+      containers:
+        - name: react-website
+          image: your-docker-registry/react-website:latest
+          ports:
+            - containerPort: 80

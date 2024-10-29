@@ -24,7 +24,7 @@ const skills = {
     "Flutter",
     "Spring Boot",
   ],
-  "Cloud and Deployment": ["AWS", "Azure", "Docker", "Kubernetes", "Firebase"],
+  "Cloud and Deployment": ["AWS", "Azure", "Docker", "Kubernetes", "Nginx", "Firebase"],
   Databases: ["MySQL", "PostgreSQL", "MongoDB"],
   "Testing & API": [
     "Jest",
