@@ -18,6 +18,7 @@ import { AnimatePresence } from "framer-motion";
 import { darkTheme, lightTheme } from "./theme";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { SnackbarProvider } from "notistack";
 
 const ConditionalMenu: React.FC<{
   darkMode: boolean;
@@ -100,27 +101,29 @@ const App: React.FC = () => {
   };
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <Router>
-        <div
-          ref={menuRef}
-          onClick={(e) => e.stopPropagation()}
-          onMouseDown={(e) => e.stopPropagation()}
-          onMouseUp={(e) => e.stopPropagation()}
-          onTouchStart={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
-          onWheel={(e) => e.stopPropagation()}
-        >
-          <ConditionalMenu
-            darkMode={darkMode}
-            onThemeToggle={handleThemeChange}
-            onNavigate={handleNavigation}
-          />
-        </div>
-        <AnimatedRoutes darkMode={darkMode} />
-      </Router>
-    </ThemeProvider>
+    <SnackbarProvider maxSnack={3}>
+      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+        <CssBaseline />
+        <Router>
+          <div
+            ref={menuRef}
+            onClick={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            onMouseUp={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+            onTouchEnd={(e) => e.stopPropagation()}
+            onWheel={(e) => e.stopPropagation()}
+          >
+            <ConditionalMenu
+              darkMode={darkMode}
+              onThemeToggle={handleThemeChange}
+              onNavigate={handleNavigation}
+            />
+          </div>
+          <AnimatedRoutes darkMode={darkMode} />
+        </Router>
+      </ThemeProvider>
+    </SnackbarProvider>
   );
 };
 
