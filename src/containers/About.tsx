@@ -24,7 +24,7 @@ const skills = {
     "Flutter",
     "Spring Boot",
   ],
-  "Cloud and Deployment": ["AWS", "Azure", "Docker", "Firebase"],
+  "Cloud and Deployment": ["AWS", "Azure", "Docker", "Kubernetes", "Firebase"],
   Databases: ["MySQL", "PostgreSQL", "MongoDB"],
   "Testing & API": [
     "Jest",
@@ -85,8 +85,7 @@ const About: React.FC = () => {
                 Hello! I'm a Full-Stack Software Developer passionate about
                 creating efficient and user-friendly applications. With
                 expertise in both front-end and back-end technologies, I strive
-                to build comprehensive solutions for modern web
-                development.
+                to build comprehensive solutions for modern web development.
               </Typography>
               <Typography variant="body1" paragraph>
                 Whether working on a dynamic web app, integrating APIs, or
