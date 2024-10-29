@@ -1,27 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-website
-  namespace: default
+  name: personal-website
+  labels:
+    app: personal-website
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: react-website
+      app: personal-website
   template:
     metadata:
       labels:
-        app: react-website
+        app: personal-website
     spec:
       containers:
-        - name: react-website
-          image: jarnbjorn92/react-website:latest 
+        - name: personal-website
+          image: personal-website-v2:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           resources:
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
             limits:
               cpu: "500m"
               memory: "512Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: personal-website-service
+spec:
+  selector:
+    app: personal-website
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
