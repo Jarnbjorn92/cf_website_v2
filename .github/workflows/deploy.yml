@@ -10,7 +10,7 @@ on:
 
 # Environment variables used throughout the workflow
 env:
-  DOCKER_IMAGE: your-docker-username/react-website
+  DOCKER_IMAGE: jarnbjorn92/react-website
   KUBERNETES_NAMESPACE: default
 
 jobs:
