@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: react-website
+  namespace: default
 spec:
   replicas: 2
   selector:
@@ -14,6 +15,13 @@ spec:
     spec:
       containers:
         - name: react-website
-          image: your-docker-registry/react-website:latest
+          image: jarnbjorn92/react-website:latest 
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

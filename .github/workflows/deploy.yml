@@ -78,13 +78,16 @@ jobs:
           export KUBECONFIG=$(pwd)/kubeconfig.yaml
           kubectl get nodes  # Test the connection
 
-
       # Deploy to Kubernetes
       - name: Deploy to Kubernetes
         run: |
           export KUBECONFIG=kubeconfig.yaml
 
-          # Update deployment with new image
+          # Apply both deployment and service
+          kubectl apply -f kubernetes/deployment.yaml
+          kubectl apply -f kubernetes/service.yaml
+
+          # Update to the new image
           kubectl set image deployment/react-website \
             react-website=${{ env.DOCKER_IMAGE }}:${{ github.sha }} \
             -n ${{ env.KUBERNETES_NAMESPACE }}
