@@ -1,112 +1,54 @@
-name: Deploy React Website
+name: Deploy to Production
 
-# Triggers when code is pushed to main branch
 on:
   push:
-    branches: [main]
-  # Optionally add pull_request trigger for testing
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
-# Environment variables used throughout the workflow
 env:
-  DOCKER_IMAGE: jarnbjorn92/react-website
+  DOCKER_IMAGE: personal-website-v2
   KUBERNETES_NAMESPACE: default
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-      # Check out your repository code
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
-      # Cache npm dependencies
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
-      # Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Install dependencies and build React app
-      - name: Install dependencies
-        run: npm ci
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
 
-      - name: Build React app
-        run: npm run build
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest'
 
-      # Set up Docker Buildx
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+    - name: Configure kubectl
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      id: kubectl-context
 
-      # Log in to Docker Hub
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # Build and push Docker image
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ env.DOCKER_IMAGE }}:latest
-            ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
-          cache-from: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache
-          cache-to: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache,mode=max
-
-      # Set up kubectl
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
-
-      # Create kubeconfig file
-      - name: Create kubeconfig file
-        run: |
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig.yaml
-          export KUBECONFIG=$(pwd)/kubeconfig.yaml
-          kubectl get nodes  # Test the connection
-
-      # Deploy to Kubernetes
-      - name: Deploy to Kubernetes
-        run: |
-          export KUBECONFIG=kubeconfig.yaml
-
-          # Apply both deployment and service
-          kubectl apply -f kubernetes/deployment.yaml
-          kubectl apply -f kubernetes/service.yaml
-
-          # Update to the new image
-          kubectl set image deployment/react-website \
-            react-website=${{ env.DOCKER_IMAGE }}:${{ github.sha }} \
-            -n ${{ env.KUBERNETES_NAMESPACE }}
-
-          # Verify deployment
-          kubectl rollout status deployment/react-website \
-            -n ${{ env.KUBERNETES_NAMESPACE }}
-
-      # Optional: Add deployment status to GitHub
-      - name: Update deployment status
-        if: always()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const deployment = await github.rest.repos.createDeployment({
-              owner,
-              repo,
-              ref: context.sha,
-              environment: 'production',
-              auto_merge: false
-            });
+    - name: Deploy to Kubernetes
+      run: |
+        # Update the deployment image
+        kubectl set image deployment/personal-website personal-website=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest -n ${{ env.KUBERNETES_NAMESPACE }}
+        
+        # Verify deployment
+        kubectl rollout status deployment/personal-website -n ${{ env.KUBERNETES_NAMESPACE }}
