@@ -72,9 +72,11 @@ jobs:
         uses: azure/setup-kubectl@v3
 
       # Create kubeconfig file
-      - name: Create kubeconfig
+      - name: Configure kubeconfig
+        env:
+          KUBECONFIG: "${{ secrets.KUBE_CONFIG }}"
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig.yaml
+          kubectl get nodes
 
       # Deploy to Kubernetes
       - name: Deploy to Kubernetes
