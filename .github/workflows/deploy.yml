@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     
     steps:
@@ -29,14 +29,22 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/personal-website-v2:latest
 
-    - name: Create kubeconfig
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+    - name: Save DigitalOcean kubeconfig
+      run: doctl kubernetes cluster kubeconfig save ${{ secrets.CLUSTER_NAME }}
+
+    - name: Deploy to DigitalOcean Kubernetes
       run: |
-        mkdir -p ${HOME}/.kube
-        echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > ${HOME}/.kube/config
-        chmod 600 ${HOME}/.kube/config
-      
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl create namespace personal-website --dry-run=client -o yaml | kubectl apply -f -
-        kubectl apply -f k8s/deployment.yaml -n personal-website
-        kubectl rollout status deployment/personal-website -n personal-website
+        kubectl apply -f k8s/deployment.yaml
+        kubectl rollout status deployment/personal-website
