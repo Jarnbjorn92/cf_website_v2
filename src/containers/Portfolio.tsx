@@ -142,7 +142,7 @@ const Portfolio: React.FC = () => {
     "Framer Motion",
     "Docker",
     "Kubernetes",
-    "Nginx",
+    "AWS",
   ];
 
   const handleClickOpen = (project: (typeof projects)[0]) => {
@@ -174,6 +174,12 @@ const Portfolio: React.FC = () => {
                 This portfolio website showcases my skills in modern web
                 development. It's built with a focus on responsiveness, smooth
                 animations, and an engaging user interface. 
+              </Typography>
+              <Typography variant="body2" color="text.secondary" paragraph>
+                Locally deployed and experimented using Docker and Minikube K8s container.
+              </Typography>
+              <Typography variant="body2" color="text.secondary" paragraph>
+                Deployed on AWS statically using an s3 bucket.
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
                 Technologies used:
