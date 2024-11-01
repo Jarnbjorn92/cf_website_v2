@@ -173,7 +173,7 @@ const Portfolio: React.FC = () => {
               <Typography variant="body2" color="text.secondary" paragraph>
                 This portfolio website showcases my skills in modern web
                 development. It's built with a focus on responsiveness, smooth
-                animations, and an engaging user interface.
+                animations, and an engaging user interface. 
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
                 Technologies used:
