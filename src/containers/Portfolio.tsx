@@ -22,6 +22,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import onaImage from "../assets/Oot'N'Aboot-logo.jpeg";
 import bhImage from "../assets/blackhole.png";
 import ccImage from "../assets/codeclanzo.png";
+// import websiteImage from "../assets/website.png";
 
 const projects = [
   {
@@ -194,6 +195,18 @@ const Portfolio: React.FC = () => {
                   />
                 ))}
               </Stack>
+              <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
+                <Link
+                  href="https://github.com/Jarnbjorn92/cf_website_v2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="inherit"
+                >
+                  <Button startIcon={<GitHubIcon />} variant="outlined">
+                    View on GitHub
+                  </Button>
+                </Link>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -211,6 +224,17 @@ const Portfolio: React.FC = () => {
           <>
             <DialogTitle>{selectedProject.title}</DialogTitle>
             <DialogContent>
+              <CardMedia
+                component="img"
+                height="200"
+                image={selectedProject.image}
+                alt={selectedProject.title}
+                sx={{
+                  mb: 2,
+                  objectFit: "contain",
+                  bgcolor: "background.paper",
+                }}
+              />
               <Typography variant="body2" paragraph>
                 {selectedProject.longDescription}
               </Typography>
