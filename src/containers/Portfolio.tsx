@@ -173,13 +173,14 @@ const Portfolio: React.FC = () => {
               <Typography variant="body2" color="text.secondary" paragraph>
                 This portfolio website showcases my skills in modern web
                 development. It's built with a focus on responsiveness, smooth
-                animations, and an engaging user interface. 
+                animations, and an engaging user interface.
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
-                Locally deployed and experimented using Docker and Minikube K8s container.
+                Deployed locally and experimented with Docker and a Minikube
+                Kubernetes cluster.
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
-                Deployed on AWS statically using an s3 bucket.
+                Conducted static deployments on AWS using an S3 bucket.
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
                 Technologies used:

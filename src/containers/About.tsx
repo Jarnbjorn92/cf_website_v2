@@ -89,7 +89,7 @@ const About: React.FC = () => {
               </Typography>
               <Typography variant="body1" paragraph>
                 Whether working on a dynamic web app, integrating APIs, or
-                optimizing existing systems, I am committed to delivering code
+                optimising existing systems, I am committed to delivering code
                 that is clean, maintainable, and scalable. I enjoy collaborating
                 with teams to bring ideas to life, and I believe that the best
                 solutions come from a balance of creativity, technical
