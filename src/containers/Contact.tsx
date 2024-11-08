@@ -26,7 +26,7 @@ const Contact: React.FC = () => {
   });
 
   const handleDownloadCV = () => {
-    const cvPath = "/connor_fleming_cv.pdf";
+    const cvPath = "/connor_fleming_resume.pdf";
     window.open(cvPath, "_blank");
   };
 
