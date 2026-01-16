@@ -6,10 +6,10 @@ import {
   CardContent,
   useTheme,
   useMediaQuery,
-  Grid,
   Chip,
   Paper,
   Avatar,
+  Grid,
 } from "@mui/material";
 import profileImage from "../assets/me.jpeg";
 
@@ -62,8 +62,7 @@ const About: React.FC = () => {
           >
             {isMobile && (
               <Grid
-                item
-                xs={12}
+                size={{ xs: 12 }}
                 sx={{ display: "flex", justifyContent: "center", mb: 2 }}
               >
                 <Avatar
@@ -77,14 +76,14 @@ const About: React.FC = () => {
                 />
               </Grid>
             )}
-            <Grid item xs={12} md={8}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
                 About Me
               </Typography>
               <Typography variant="body1" paragraph>
                 Hello! I'm a Full-Stack Software Developer passionate about
                 creating efficient and user-friendly applications. With
-                expertise in both front-end and back-end technologies, I strive
+                expertise in both frontend and backend technologies, I strive
                 to build comprehensive solutions for modern web development.
               </Typography>
               <Typography variant="body1" paragraph>
@@ -98,8 +97,7 @@ const About: React.FC = () => {
             </Grid>
             {!isMobile && (
               <Grid
-                item
-                md={4}
+                size={{ md: 4 }}
                 sx={{ display: "flex", justifyContent: "flex-end" }}
               >
                 <Avatar
@@ -127,7 +125,7 @@ const About: React.FC = () => {
         </Typography>
         <Grid container spacing={3}>
           {Object.entries(skills).map(([category, categorySkills]) => (
-            <Grid item xs={12} sm={6} md={4} key={category}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={category}>
               <Card
                 variant="outlined"
                 sx={{

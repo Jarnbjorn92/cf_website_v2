@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   Box,
   Typography,
-  Grid,
   Card,
   CardContent,
   CardMedia,
@@ -17,6 +16,7 @@ import {
   Button,
   Link,
   CardActionArea,
+  Grid,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import onaImage from "../assets/Oot'N'Aboot-logo.jpeg";
@@ -161,7 +161,7 @@ const Portfolio: React.FC = () => {
         My Portfolio
       </Typography>
       <Grid container spacing={isMobile ? 2 : 3} justifyContent="center">
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Card sx={{ mb: 2 }}>
             <CardContent>
               <Typography
@@ -211,7 +211,7 @@ const Portfolio: React.FC = () => {
           </Card>
         </Grid>
         {projects.map((project, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
             <ProjectCard
               project={project}
               onClick={() => handleClickOpen(project)}

@@ -83,7 +83,7 @@ const Contact: React.FC = () => {
         sx={{ width: "100%" }}
       >
         {/* Contact Form Section */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={3}
             sx={{
@@ -152,7 +152,7 @@ const Contact: React.FC = () => {
         </Grid>
 
         {/* CV Download Section */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={3}
             sx={{

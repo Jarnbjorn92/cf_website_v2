@@ -89,19 +89,19 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
               <Switch edge="end" checked={darkMode} onChange={onThemeToggle} />
             </ListItemSecondaryAction>
           </ListItem>
-          <ListItem button onClick={() => handleNavigation("about")}>
+          <ListItem onClick={() => handleNavigation("about")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'action.hover' } }}>
             <ListItemIcon>
               <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="About" />
           </ListItem>
-          <ListItem button onClick={() => handleNavigation("portfolio")}>
+          <ListItem onClick={() => handleNavigation("portfolio")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'action.hover' } }}>
             <ListItemIcon>
               <WorkIcon />
             </ListItemIcon>
             <ListItemText primary="Portfolio" />
           </ListItem>
-          <ListItem button onClick={() => handleNavigation("contact")}>
+          <ListItem onClick={() => handleNavigation("contact")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'action.hover' } }}>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
