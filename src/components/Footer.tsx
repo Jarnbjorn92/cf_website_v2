@@ -22,9 +22,11 @@ const Footer: React.FC = () => {
     <Box
       component="footer"
       sx={{
-        py: isMobile ? 1 : 2,
+        py: { xs: 3, md: 4 },
         px: isMobile ? 1 : 2,
         mt: "auto",
+        borderTop: '1px solid',
+        borderColor: 'divider',
       }}
     >
       <Stack

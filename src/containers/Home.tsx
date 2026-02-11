@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Stack, Button, Typography } from "@mui/material";
+import { Stack, Button, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UseAnimations from "react-useanimations";
 import github from "react-useanimations/lib/github";
 import linkedin from "react-useanimations/lib/linkedin";
 import { useTheme } from "@mui/material/styles";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ParticleBackground from "../components/ParticleBackground";
 import * as THREE from "three";
 import Transition from "../components/Transition";
+import { motion } from "framer-motion";
 
 interface HomeProps {
   darkMode: boolean;
@@ -45,7 +47,7 @@ const useTypewriter = (text: any, delay = 100, startDelay = 0) => {
 const Home: React.FC<HomeProps> = ({ darkMode }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const color = new THREE.Color(0x0077ff);
+  const color = new THREE.Color(0x6366f1);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const socialButtonsRef = useRef<HTMLDivElement>(null);
   const nameText = useTypewriter("Connor Fleming", 100, 0);
@@ -143,76 +145,129 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
         }}
         spacing={3}
       >
-        <Typography variant="h2">{nameText}</Typography>
-        <Typography variant="h5">{roleText}</Typography>
-        <Stack
-          ref={socialButtonsRef}
-          direction="row"
-          spacing={3}
-          onClick={(e) => e.stopPropagation()}
-          onMouseDown={(e) => e.stopPropagation()}
-          onMouseUp={(e) => e.stopPropagation()}
-          onTouchStart={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
-          sx={{
-            cursor: "default",
-            padding: 1,
-            borderRadius: 2,
-          }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
         >
-          <Button
-            sx={{
-              borderRadius: 15,
-              "&:hover": {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-              },
-            }}
-            onClick={(e) =>
-              handleSocialClick("https://github.com/Jarnbjorn92", e)
-            }
+          <Typography
+            variant="h1"
+            color="text.primary"
+          >
+            {nameText}
+          </Typography>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
+        >
+          <Typography variant="h5" color="text.primary">
+            {roleText}
+          </Typography>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
+        >
+          <Stack
+            ref={socialButtonsRef}
+            direction="row"
+            spacing={3}
+            onClick={(e) => e.stopPropagation()}
             onMouseDown={(e) => e.stopPropagation()}
             onMouseUp={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
             onTouchEnd={(e) => e.stopPropagation()}
-          >
-            <UseAnimations
-              animation={github}
-              size={56}
-              strokeColor={theme.palette.primary.main}
-              autoplay={true}
-              loop={true}
-            />
-          </Button>
-          <Button
             sx={{
-              borderRadius: 15,
-              "&:hover": {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-              },
+              cursor: "default",
+              padding: 1,
+              borderRadius: 2,
             }}
-            onClick={(e) =>
-              handleSocialClick(
-                "https://www.linkedin.com/in/connor-j-fleming/",
-                e
-              )
-            }
-            onMouseDown={(e) => e.stopPropagation()}
-            onMouseUp={(e) => e.stopPropagation()}
-            onTouchStart={(e) => e.stopPropagation()}
-            onTouchEnd={(e) => e.stopPropagation()}
           >
-            <UseAnimations
-              animation={linkedin}
-              size={56}
-              strokeColor={theme.palette.primary.main}
-              autoplay={true}
-              loop={true}
-            />
-          </Button>
-        </Stack>
-        <Typography variant="body2" color="textSecondary">
-          Click anywhere or scroll to enter
-        </Typography>
+            <Button
+              sx={{
+                borderRadius: "50%",
+                minWidth: 0,
+                width: 64,
+                height: 64,
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(8px)",
+                "&:hover": {
+                  backgroundColor: "rgba(99, 102, 241, 0.1)",
+                  borderColor: "#6366F1",
+                  boxShadow: "0 0 20px rgba(99, 102, 241, 0.3)",
+                },
+              }}
+              onClick={(e) =>
+                handleSocialClick("https://github.com/Jarnbjorn92", e)
+              }
+              onMouseDown={(e) => e.stopPropagation()}
+              onMouseUp={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
+            >
+              <UseAnimations
+                animation={github}
+                size={56}
+                strokeColor={theme.palette.primary.main}
+                autoplay={true}
+                loop={true}
+              />
+            </Button>
+            <Button
+              sx={{
+                borderRadius: "50%",
+                minWidth: 0,
+                width: 64,
+                height: 64,
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(8px)",
+                "&:hover": {
+                  backgroundColor: "rgba(99, 102, 241, 0.1)",
+                  borderColor: "#6366F1",
+                  boxShadow: "0 0 20px rgba(99, 102, 241, 0.3)",
+                },
+              }}
+              onClick={(e) =>
+                handleSocialClick(
+                  "https://www.linkedin.com/in/connor-j-fleming/",
+                  e
+                )
+              }
+              onMouseDown={(e) => e.stopPropagation()}
+              onMouseUp={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
+            >
+              <UseAnimations
+                animation={linkedin}
+                size={56}
+                strokeColor={theme.palette.primary.main}
+                autoplay={true}
+                loop={true}
+              />
+            </Button>
+          </Stack>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
+        >
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <KeyboardArrowDownIcon sx={{ color: "text.secondary", fontSize: 28 }} />
+            </motion.div>
+            <Typography variant="caption" color="text.secondary">
+              Click anywhere or scroll to enter
+            </Typography>
+          </Box>
+        </motion.div>
       </Stack>
     </Transition>
   );

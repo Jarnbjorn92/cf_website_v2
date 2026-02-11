@@ -22,7 +22,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import onaImage from "../assets/Oot'N'Aboot-logo.jpeg";
 import bhImage from "../assets/blackhole.png";
 import ccImage from "../assets/codeclanzo.png";
-// import websiteImage from "../assets/website.png";
 
 const projects = [
   {
@@ -89,40 +88,43 @@ const ProjectCard: React.FC<{
   }, []);
 
   return (
-    <Card
+    <Box
       ref={cardRef}
       sx={{
+        background: "linear-gradient(135deg, #6366F1, #06B6D4)",
+        borderRadius: "17px",
+        p: "1px",
         transition: "all 0.3s ease-in-out",
-        transform: isMobile && isCardCentered ? "scale(1.05)" : "scale(1)",
-        boxShadow:
-          isMobile && isCardCentered ? "0 4px 20px rgba(0,0,0,0.12)" : "none",
+        transform:
+          isMobile && isCardCentered ? "translateY(-4px)" : "translateY(0)",
         "&:hover": {
-          transform: !isMobile ? "scale(1.05)" : "scale(1)",
-          boxShadow: !isMobile ? "0 4px 20px rgba(0,0,0,0.12)" : "none",
+          transform: !isMobile ? "translateY(-4px)" : "translateY(0)",
         },
       }}
     >
-      <CardActionArea onClick={onClick}>
-        <CardMedia
-          component="img"
-          height={isMobile ? "120" : "140"}
-          image={project.image}
-          alt={project.title}
-        />
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant={isMobile ? "h6" : "h5"}
-            component="div"
-          >
-            {project.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {project.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+      <Card sx={{ borderRadius: "16px" }}>
+        <CardActionArea onClick={onClick}>
+          <CardMedia
+            component="img"
+            height={isMobile ? "120" : "140"}
+            image={project.image}
+            alt={project.title}
+          />
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant={isMobile ? "h6" : "h5"}
+              component="div"
+            >
+              {project.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {project.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Box>
   );
 };
 
@@ -157,58 +159,74 @@ const Portfolio: React.FC = () => {
 
   return (
     <Box sx={{ minHeight: isMobile ? "auto" : "auto", py: isMobile ? 4 : 8 }}>
-      <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
+      <Typography
+        variant={isMobile ? "h5" : "h4"}
+        align="center"
+        gutterBottom
+        sx={{ mb: 3 }}
+      >
         My Portfolio
       </Typography>
       <Grid container spacing={isMobile ? 2 : 3} justifyContent="center">
         <Grid size={{ xs: 12 }}>
-          <Card sx={{ mb: 2 }}>
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant={isMobile ? "h6" : "h5"}
-                component="div"
-              >
-                This Website
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                This portfolio website showcases my skills in modern web
-                development. It's built with a focus on responsiveness, smooth
-                animations, and an engaging user interface.
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                Deployed locally and experimented with Docker and a Minikube
-                Kubernetes cluster.
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                Conducted static deployments on AWS using an S3 bucket.
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                Technologies used:
-              </Typography>
-              <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                {technologies.map((tech, index) => (
-                  <Chip
-                    key={index}
-                    label={tech}
-                    size={isMobile ? "small" : "medium"}
-                  />
-                ))}
-              </Stack>
-              <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-                <Link
-                  href="https://github.com/Jarnbjorn92/cf_website_v2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="inherit"
+          <Box
+            sx={{
+              background: "linear-gradient(135deg, #6366F1, #06B6D4)",
+              borderRadius: "17px",
+              p: "1px",
+              mb: 2,
+            }}
+          >
+            <Card sx={{ borderRadius: "16px" }}>
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant={isMobile ? "h6" : "h5"}
+                  component="div"
                 >
-                  <Button startIcon={<GitHubIcon />} variant="outlined">
-                    View on GitHub
-                  </Button>
-                </Link>
-              </Box>
-            </CardContent>
-          </Card>
+                  This Website
+                </Typography>
+                <Typography variant="body2" color="text.secondary" paragraph>
+                  This portfolio website showcases my skills in modern web
+                  development. It's built with a focus on responsiveness, smooth
+                  animations, and an engaging user interface.
+                </Typography>
+                <Typography variant="body2" color="text.secondary" paragraph>
+                  Deployed locally and experimented with Docker and a Minikube
+                  Kubernetes cluster.
+                </Typography>
+                <Typography variant="body2" color="text.secondary" paragraph>
+                  Conducted static deployments on AWS using an S3 bucket.
+                </Typography>
+                <Typography variant="body2" color="text.secondary" paragraph>
+                  Technologies used:
+                </Typography>
+                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  {technologies.map((tech, index) => (
+                    <Chip
+                      key={index}
+                      label={tech}
+                      size={isMobile ? "small" : "medium"}
+                    />
+                  ))}
+                </Stack>
+                <Box
+                  sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}
+                >
+                  <Link
+                    href="https://github.com/Jarnbjorn92/cf_website_v2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    color="inherit"
+                  >
+                    <Button startIcon={<GitHubIcon />} variant="outlined">
+                      View on GitHub
+                    </Button>
+                  </Link>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
         </Grid>
         {projects.map((project, index) => (
           <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
@@ -233,6 +251,7 @@ const Portfolio: React.FC = () => {
                   mb: 2,
                   objectFit: "contain",
                   bgcolor: "background.paper",
+                  borderRadius: 2,
                 }}
               />
               <Typography variant="body2" paragraph>

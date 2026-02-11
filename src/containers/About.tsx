@@ -7,7 +7,6 @@ import {
   useTheme,
   useMediaQuery,
   Chip,
-  Paper,
   Avatar,
   Grid,
 } from "@mui/material";
@@ -48,11 +47,12 @@ const About: React.FC = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        py: isMobile ? 4 : 8,
+        pt: 0,
+        pb: isMobile ? 4 : 8,
         px: 2,
       }}
     >
-      <Card sx={{ width: "100%", maxWidth: 1200, mb: 4, px: 5 }}>
+      <Card sx={{ width: "100%", maxWidth: 1200, mb: 4, px: { xs: 3, md: 6 }, py: { xs: 3, md: 5 } }}>
         <CardContent>
           <Grid
             container
@@ -71,7 +71,8 @@ const About: React.FC = () => {
                   sx={{
                     width: 200,
                     height: 200,
-                    boxShadow: theme.shadows[3],
+                    outline: "3px solid #6366F1",
+                    outlineOffset: "3px",
                   }}
                 />
               </Grid>
@@ -101,12 +102,13 @@ const About: React.FC = () => {
                 sx={{ display: "flex", justifyContent: "flex-end" }}
               >
                 <Avatar
-                  alt="Your Name"
+                  alt="Connor"
                   src={profileImage}
                   sx={{
                     width: 250,
                     height: 250,
-                    boxShadow: theme.shadows[3],
+                    outline: "3px solid #6366F1",
+                    outlineOffset: "3px",
                   }}
                 />
               </Grid>
@@ -115,63 +117,72 @@ const About: React.FC = () => {
         </CardContent>
       </Card>
 
-      <Paper elevation={3} sx={{ width: "100%", maxWidth: 1200, p: 3 }}>
-        <Typography
-          variant={isMobile ? "h5" : "h4"}
-          gutterBottom
-          align="center"
-        >
-          My Skills
-        </Typography>
-        <Grid container spacing={3}>
-          {Object.entries(skills).map(([category, categorySkills]) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={category}>
-              <Card
-                variant="outlined"
-                sx={{
-                  height: "100%",
-                  transition: "all 0.3s ease-in-out",
-                  "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: theme.shadows[4],
-                  },
-                }}
-              >
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    align="center"
-                    color="primary"
-                  >
-                    {category}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: 1,
-                      justifyContent: "center",
-                    }}
-                  >
-                    {categorySkills.map((skill) => (
-                      <Chip
-                        key={skill}
-                        label={skill}
-                        size={isMobile ? "small" : "medium"}
-                        sx={{
-                          bgcolor: theme.palette.primary.main,
-                          color: "white",
-                        }}
-                      />
-                    ))}
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Paper>
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: 1200,
+          background: "linear-gradient(135deg, #6366F1, #06B6D4)",
+          borderRadius: "17px",
+          p: "1px",
+        }}
+      >
+        <Card sx={{ borderRadius: "16px", px: { xs: 2, md: 4 }, py: { xs: 3, md: 4 } }}>
+          <CardContent>
+          <Typography
+            variant={isMobile ? "h5" : "h4"}
+            gutterBottom
+            align="center"
+            sx={{ mb: 3 }}
+          >
+            My Skills
+          </Typography>
+          <Grid container spacing={3}>
+            {Object.entries(skills).map(([category, categorySkills]) => (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={category}>
+                <Card
+                  variant="outlined"
+                  sx={{
+                    height: "100%",
+                    transition: "all 0.3s ease-in-out",
+                    "&:hover": {
+                      transform: "translateY(-4px)",
+                      borderColor: "#6366F1",
+                    },
+                  }}
+                >
+                  <CardContent>
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      align="center"
+                      color="primary"
+                    >
+                      {category}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 1,
+                        justifyContent: "center",
+                      }}
+                    >
+                      {categorySkills.map((skill) => (
+                        <Chip
+                          key={skill}
+                          label={skill}
+                          size={isMobile ? "small" : "medium"}
+                        />
+                      ))}
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+          </CardContent>
+        </Card>
+      </Box>
     </Box>
   );
 };

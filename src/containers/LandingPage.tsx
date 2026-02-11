@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Container, useMediaQuery, useTheme } from "@mui/material";
 import About from "./About";
 import Portfolio from "./Portfolio";
 import Contact from "./Contact";
@@ -7,11 +7,31 @@ import Footer from "../components/Footer";
 import ParticleBackground from "../components/ParticleBackground";
 import Transition from "../components/Transition";
 import * as THREE from "three";
+import { motion } from "framer-motion";
+
+const GradientDivider = () => (
+  <Box
+    sx={{
+      height: "3px",
+      width: "100%",
+      maxWidth: "80vw",
+      mx: "auto",
+      my: { xs: 6, md: 10 },
+      background:
+        "linear-gradient(90deg, transparent, #6366F1, #06B6D4, transparent)",
+    }}
+  />
+);
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const LandingPage: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const color = new THREE.Color(0x6e44ff); // Deep purple
+  const color = new THREE.Color(0x6366f1);
 
   return (
     <Transition>
@@ -23,15 +43,39 @@ const LandingPage: React.FC = () => {
           px: isMobile ? 2 : 4,
         }}
       >
-        <div id="about" style={{ marginTop: "3rem" }}>
+        <motion.div
+          id="about"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
+          style={{ marginTop: isMobile ? "4rem" : "6rem" }}
+        >
           <About />
-        </div>
-        <div id="portfolio" style={{ marginTop: "3rem" }}>
+        </motion.div>
+        <GradientDivider />
+        <motion.div
+          id="portfolio"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
+        >
           <Portfolio />
-        </div>
-        <div id="contact" style={{ marginTop: "4rem" }}>
+        </motion.div>
+        <GradientDivider />
+        <motion.div
+          id="contact"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
+        >
           <Contact />
-        </div>
+        </motion.div>
         <Footer />
       </Container>
     </Transition>

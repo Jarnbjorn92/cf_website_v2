@@ -73,8 +73,8 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
             width: 280,
             background:
               theme.palette.mode === "dark"
-                ? "linear-gradient(145deg, rgba(26, 26, 26, 0.9), rgba(30, 30, 30, 0.9))"
-                : "linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(250, 250, 250, 0.9))",
+                ? "linear-gradient(145deg, rgba(24, 24, 27, 0.95), rgba(39, 39, 42, 0.95))"
+                : "linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(244, 244, 245, 0.95))",
             backdropFilter: "blur(10px)",
           },
         }}
@@ -89,19 +89,19 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
               <Switch edge="end" checked={darkMode} onChange={onThemeToggle} />
             </ListItemSecondaryAction>
           </ListItem>
-          <ListItem onClick={() => handleNavigation("about")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'action.hover' } }}>
+          <ListItem onClick={() => handleNavigation("about")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'rgba(99, 102, 241, 0.08)', borderLeft: '2px solid #6366F1' } }}>
             <ListItemIcon>
               <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="About" />
           </ListItem>
-          <ListItem onClick={() => handleNavigation("portfolio")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'action.hover' } }}>
+          <ListItem onClick={() => handleNavigation("portfolio")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'rgba(99, 102, 241, 0.08)', borderLeft: '2px solid #6366F1' } }}>
             <ListItemIcon>
               <WorkIcon />
             </ListItemIcon>
             <ListItemText primary="Portfolio" />
           </ListItem>
-          <ListItem onClick={() => handleNavigation("contact")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'action.hover' } }}>
+          <ListItem onClick={() => handleNavigation("contact")} sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'rgba(99, 102, 241, 0.08)', borderLeft: '2px solid #6366F1' } }}>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>

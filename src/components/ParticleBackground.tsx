@@ -42,7 +42,12 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
   }, []);
 
   const animate = useCallback((time: number) => {
-    const deltaTime = Math.min(time - lastTimeRef.current, 50);
+    animationFrameId.current = requestAnimationFrame(animate);
+
+    const elapsed = time - lastTimeRef.current;
+    if (elapsed < 33) return;
+
+    const deltaTime = Math.min(elapsed, 50);
     lastTimeRef.current = time;
 
     if (pointsRef.current && velocitiesRef.current) {
@@ -68,8 +73,6 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
     if (rendererRef.current && sceneRef.current && cameraRef.current) {
       rendererRef.current.render(sceneRef.current, cameraRef.current);
     }
-
-    animationFrameId.current = requestAnimationFrame(animate);
   }, []);
 
   useEffect(() => {
@@ -89,12 +92,13 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       powerPreference: "high-performance",
     });
 
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountNode.appendChild(renderer.domElement);
 
     const geometry = new THREE.BufferGeometry();
-    const particles = 3000;
+    const isMobileDevice = window.innerWidth < 768;
+    const particles = isMobileDevice ? 800 : 1500;
     const positions = new Float32Array(particles * 3);
     const velocities = new Float32Array(particles * 3);
 
@@ -103,9 +107,9 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       positions[i + 1] = (Math.random() - 0.5) * 10;
       positions[i + 2] = (Math.random() - 0.5) * 10;
 
-      velocities[i] = (Math.random() - 0.5) * 0.01;
-      velocities[i + 1] = (Math.random() - 0.5) * 0.01;
-      velocities[i + 2] = (Math.random() - 0.5) * 0.01;
+      velocities[i] = (Math.random() - 0.5) * 0.007;
+      velocities[i + 1] = (Math.random() - 0.5) * 0.007;
+      velocities[i + 2] = (Math.random() - 0.5) * 0.007;
     }
 
     velocitiesRef.current = velocities;
@@ -116,7 +120,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
 
     const material = new THREE.PointsMaterial({
       color,
-      size: isDark ? 0.1 : 0.15, // Increased light mode size from 0.08 to 0.15
+      size: isDark ? 0.12 : 0.15, // Increased light mode size from 0.08 to 0.15
       map: texture,
       transparent: true,
       blending: THREE.AdditiveBlending,
@@ -152,6 +156,10 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
+      geometry.dispose();
+      material.dispose();
+      texture.dispose();
+      renderer.dispose();
       mountNode.removeChild(renderer.domElement);
     };
     // eslint-disable-next-line
@@ -165,7 +173,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       materialRef.current.map = createParticleTexture(isDark);
 
       // Updated size and opacity values
-      materialRef.current.size = isDark ? 0.1 : 0.15; // Increased light mode size
+      materialRef.current.size = isDark ? 0.12 : 0.15; // Increased light mode size
       materialRef.current.opacity = isDark ? 1 : 0.5; // Adjusted light mode opacity
       materialRef.current.color = color;
 

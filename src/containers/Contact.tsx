@@ -13,20 +13,26 @@ import {
 import { CloudDownload } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 
+interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const Contact: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { enqueueSnackbar } = useSnackbar();
 
   // Form state
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     message: "",
   });
 
   const handleDownloadCV = () => {
-    const cvPath = "/connor_fleming_cv.pdf";
+    const cvPath = "/connor_fleming_fullstack_cv.pdf";
     window.open(cvPath, "_blank");
   };
 
@@ -45,7 +51,7 @@ const Contact: React.FC = () => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "534eb692-031e-4304-9b5e-f7c757958921",
+          access_key: process.env.REACT_APP_WEB3FORMS_ACCESS_KEY,
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -72,6 +78,7 @@ const Contact: React.FC = () => {
       sx={{
         width: "100%",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -84,15 +91,23 @@ const Contact: React.FC = () => {
       >
         {/* Contact Form Section */}
         <Grid size={{ xs: 12, md: 6 }}>
+          <Box
+            sx={{
+              background: "linear-gradient(315deg, #6366F1, #06B6D4)",
+              borderRadius: "17px",
+              p: "1px",
+              height: "100%",
+            }}
+          >
           <Paper
             elevation={3}
             sx={{
               width: "100%",
               p: isMobile ? 3 : 4,
-              backgroundColor:
-                theme.palette.mode === "light"
-                  ? "rgba(255, 255, 255, 1)"
-                  : "rgba(0, 0, 0, 1)",
+              backgroundColor: theme.palette.background.paper,
+              borderRadius: "16px",
+              height: "100%",
+              boxSizing: "border-box",
             }}
           >
             <Typography
@@ -149,10 +164,19 @@ const Contact: React.FC = () => {
               </Stack>
             </form>
           </Paper>
+          </Box>
         </Grid>
 
         {/* CV Download Section */}
         <Grid size={{ xs: 12, md: 6 }}>
+          <Box
+            sx={{
+              background: "linear-gradient(315deg, #6366F1, #06B6D4)",
+              borderRadius: "17px",
+              p: "1px",
+              height: "100%",
+            }}
+          >
           <Paper
             elevation={3}
             sx={{
@@ -163,10 +187,9 @@ const Contact: React.FC = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor:
-                theme.palette.mode === "light"
-                  ? "rgba(255, 255, 255, 1)"
-                  : "rgba(0, 0, 0, 1)",
+              backgroundColor: theme.palette.background.paper,
+              borderRadius: "16px",
+              boxSizing: "border-box",
             }}
           >
             <Typography
@@ -180,15 +203,14 @@ const Contact: React.FC = () => {
             <Typography
               variant="body1"
               align="center"
-              color="textSecondary"
+              color="text.secondary"
               sx={{ mb: 4, maxWidth: "500px" }}
             >
               Get a copy of my latest curriculum vitae to learn more about my
               experience and skills.
             </Typography>
             <Button
-              variant="contained"
-              color="primary"
+              variant="outlined"
               size="large"
               startIcon={<CloudDownload />}
               onClick={handleDownloadCV}
@@ -196,14 +218,12 @@ const Contact: React.FC = () => {
               sx={{
                 py: 1.5,
                 px: 4,
-                borderRadius: 2,
-                textTransform: "none",
-                fontSize: "1.1rem",
               }}
             >
               Download CV
             </Button>
           </Paper>
+          </Box>
         </Grid>
       </Grid>
     </Box>
