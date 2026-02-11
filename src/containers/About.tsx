@@ -35,7 +35,12 @@ const skills = {
     "Balena",
   ],
   "Databases & ORM": ["MySQL", "PostgreSQL", "MongoDB", "Prisma"],
-  "Data & Visualization": ["Highcharts", "Chart.js", "Real-time Dashboards"],
+  "Data & Visualisation": [
+    "Highcharts",
+    "Chart.js",
+    "Apex Charts",
+    "Real-time Dashboards",
+  ],
   "Testing & API": [
     "Jest",
     "Unittest",
@@ -50,6 +55,7 @@ const skills = {
     "Agile/Scrum",
     "CI/CD",
     "Jira",
+    "Figma",
     "IoT Integration",
   ],
 };
@@ -195,9 +201,9 @@ const About: React.FC = () => {
                       <Card
                         variant="outlined"
                         sx={{
-                          height: "100%",
-                          display: "flex",
-                          transition: "all 0.3s ease-in-out",
+                          "height": "100%",
+                          "display": "flex",
+                          "transition": "transform 0.3s ease-in-out, border-color 0.3s ease-in-out",
                           "&:hover": {
                             transform: "translateY(-4px)",
                             borderColor: "#6366F1",

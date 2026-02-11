@@ -190,8 +190,8 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
               sx={{
                 borderRadius: "50%",
                 minWidth: 0,
-                width: 64,
-                height: 64,
+                width: 72,
+                height: 72,
                 border: "1px solid rgba(255, 255, 255, 0.1)",
                 backdropFilter: "blur(8px)",
                 "&:hover": {
@@ -220,8 +220,8 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
               sx={{
                 borderRadius: "50%",
                 minWidth: 0,
-                width: 64,
-                height: 64,
+                width: 72,
+                height: 72,
                 border: "1px solid rgba(255, 255, 255, 0.1)",
                 backdropFilter: "blur(8px)",
                 "&:hover": {

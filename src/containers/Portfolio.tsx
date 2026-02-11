@@ -158,7 +158,7 @@ const Portfolio: React.FC = () => {
   };
 
   return (
-    <Box sx={{ minHeight: isMobile ? "auto" : "auto", py: isMobile ? 4 : 8 }}>
+    <Box sx={{ minHeight: "auto", py: 4 }}>
       <Typography
         variant={isMobile ? "h5" : "h4"}
         align="center"

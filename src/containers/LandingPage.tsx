@@ -5,9 +5,7 @@ import Portfolio from "./Portfolio";
 import Contact from "./Contact";
 import Footer from "../components/Footer";
 import ParticleBackground from "../components/ParticleBackground";
-import Transition from "../components/Transition";
 import * as THREE from "three";
-import { motion } from "framer-motion";
 
 const GradientDivider = () => (
   <Box
@@ -23,18 +21,13 @@ const GradientDivider = () => (
   />
 );
 
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
-};
-
 const LandingPage: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const color = new THREE.Color(0x6366f1);
 
   return (
-    <Transition>
+    <>
       <ParticleBackground color={color} />
       <Container
         maxWidth="lg"
@@ -43,42 +36,23 @@ const LandingPage: React.FC = () => {
           px: isMobile ? 2 : 4,
         }}
       >
-        <motion.div
+        <div
           id="about"
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
-          style={{ marginTop: isMobile ? "4rem" : "6rem" }}
+          style={{ marginTop: isMobile ? "4rem" : "2rem" }}
         >
           <About />
-        </motion.div>
+        </div>
         <GradientDivider />
-        <motion.div
-          id="portfolio"
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
-        >
+        <div id="portfolio">
           <Portfolio />
-        </motion.div>
+        </div>
         <GradientDivider />
-        <motion.div
-          id="contact"
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
-        >
+        <div id="contact">
           <Contact />
-        </motion.div>
+        </div>
         <Footer />
       </Container>
-    </Transition>
+    </>
   );
 };
 

@@ -25,8 +25,6 @@ const Footer: React.FC = () => {
         py: { xs: 3, md: 4 },
         px: isMobile ? 1 : 2,
         mt: "auto",
-        borderTop: '1px solid',
-        borderColor: 'divider',
       }}
     >
       <Stack
@@ -37,7 +35,7 @@ const Footer: React.FC = () => {
       >
         <Stack direction="row" spacing={2}>
           <IconButton
-            color="primary"
+            sx={{ color: "#06B6D4" }}
             aria-label="GitHub"
             size={isMobile ? "small" : "large"}
             onClick={() => handleSocialClick("https://github.com/Jarnbjorn92")}
@@ -45,7 +43,7 @@ const Footer: React.FC = () => {
             <GitHubIcon />
           </IconButton>
           <IconButton
-            color="primary"
+            sx={{ color: "#06B6D4" }}
             aria-label="LinkedIn"
             size={isMobile ? "small" : "large"}
             onClick={() =>
