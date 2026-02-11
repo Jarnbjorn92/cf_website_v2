@@ -4,9 +4,10 @@ import { useTheme } from "@mui/material";
 
 interface ParticleBackgroundProps {
   color: THREE.Color;
+  secondaryColor?: THREE.Color;
 }
 
-const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
+const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color, secondaryColor }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -115,17 +116,29 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
     velocitiesRef.current = velocities;
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
+    if (secondaryColor) {
+      const colors = new Float32Array(particles * 3);
+      for (let i = 0; i < particles * 3; i += 3) {
+        const c = Math.random() > 0.5 ? secondaryColor : color;
+        colors[i] = c.r;
+        colors[i + 1] = c.g;
+        colors[i + 2] = c.b;
+      }
+      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    }
+
     const isDark = theme.palette.mode === "dark";
     const texture = createParticleTexture(isDark);
 
     const material = new THREE.PointsMaterial({
-      color,
-      size: isDark ? 0.12 : 0.15, // Increased light mode size from 0.08 to 0.15
+      ...(secondaryColor ? {} : { color }),
+      vertexColors: !!secondaryColor,
+      size: isDark ? 0.12 : 0.15,
       map: texture,
       transparent: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      opacity: isDark ? 1 : 0.5, // Reduced light mode opacity to compensate for larger size
+      opacity: isDark ? 1 : 0.5,
     });
 
     const points = new THREE.Points(geometry, material);
@@ -172,10 +185,11 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color }) => {
       materialRef.current.map?.dispose();
       materialRef.current.map = createParticleTexture(isDark);
 
-      // Updated size and opacity values
-      materialRef.current.size = isDark ? 0.12 : 0.15; // Increased light mode size
-      materialRef.current.opacity = isDark ? 1 : 0.5; // Adjusted light mode opacity
-      materialRef.current.color = color;
+      materialRef.current.size = isDark ? 0.12 : 0.15;
+      materialRef.current.opacity = isDark ? 1 : 0.5;
+      if (!secondaryColor) {
+        materialRef.current.color = color;
+      }
 
       rendererRef.current.setClearColor(isDark ? 0x000000 : 0xffffff, 0);
     }

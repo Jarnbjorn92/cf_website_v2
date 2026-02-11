@@ -25,10 +25,11 @@ const LandingPage: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const color = new THREE.Color(0x6366f1);
+  const secondaryColor = new THREE.Color(0x06b6d4);
 
   return (
     <>
-      <ParticleBackground color={color} />
+      <ParticleBackground color={color} secondaryColor={secondaryColor} />
       <Container
         maxWidth="lg"
         sx={{

@@ -1,47 +1,91 @@
-# Getting Started with Create React App
+# Personal Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A personal portfolio website built with React, TypeScript, MUI, and Three.js.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+- **React 18** with TypeScript
+- **MUI v7** for UI components and theming
+- **Three.js** for interactive particle background
+- **Framer Motion** for page transitions and animations
+- **React Router v7** for client-side routing
+- **Notistack** for snackbar notifications
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node.js (v16 or higher)
+- npm
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+```
 
-### `npm run build`
+### Running Locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000). The page will hot-reload on edits.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Running Tests
 
-### `npm run eject`
+```bash
+npm test
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Launches the test runner in interactive watch mode.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Building for Production
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm run build
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Creates an optimised production build in the `build` folder. The output is minified and filenames include content hashes for cache busting.
 
-## Learn More
+### Deployment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+After building, the `build` folder contains static files ready to be deployed to any static hosting provider:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-# Deployment Test
+- **Netlify** - connect your repo or drag and drop the `build` folder
+- **Vercel** - connect your repo; it auto-detects Create React App
+- **GitHub Pages** - use the `gh-pages` package or deploy the `build` folder manually
+- **AWS S3 / CloudFront** - upload the `build` folder to an S3 bucket configured for static hosting
+
+For GitHub Pages specifically:
+
+```bash
+npm install --save-dev gh-pages
+```
+
+Add to `package.json`:
+
+```json
+"homepage": "https://yourusername.github.io/repo-name",
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+```
+
+Then run:
+
+```bash
+npm run deploy
+```
+
+## Project Structure
+
+```
+src/
+  components/      # Reusable components (Menu, Footer, ParticleBackground, Transition)
+  containers/      # Page-level components (Home, LandingPage, About, Portfolio, Contact)
+  assets/          # Static assets (images)
+  theme.ts         # MUI light/dark theme configuration
+  App.tsx           # Root component with routing and theme provider
+```

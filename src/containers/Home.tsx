@@ -48,6 +48,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const color = new THREE.Color(0x6366f1);
+  const secondaryColor = new THREE.Color(0x06b6d4);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const socialButtonsRef = useRef<HTMLDivElement>(null);
   const nameText = useTypewriter("Connor Fleming", 100, 0);
@@ -132,7 +133,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
 
   return (
     <Transition>
-      <ParticleBackground color={color} />
+      <ParticleBackground color={color} secondaryColor={secondaryColor} />
       <Stack
         sx={{
           height: "100vh",
