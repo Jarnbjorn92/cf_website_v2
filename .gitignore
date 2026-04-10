@@ -25,3 +25,7 @@ yarn-error.log*
 
 .github/
 .prettierrc
+.claude
+.mcp.json
+design-system/
+ENHANCEMENT_PLAN.md

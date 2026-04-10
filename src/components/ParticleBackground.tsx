@@ -193,7 +193,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color, secondar
 
       rendererRef.current.setClearColor(isDark ? 0x000000 : 0xffffff, 0);
     }
-  }, [theme.palette.mode, color, createParticleTexture]);
+  }, [theme.palette.mode, color, secondaryColor, createParticleTexture]);
 
   return (
     <div
