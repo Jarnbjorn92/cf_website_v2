@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Box } from "@mui/material";
@@ -6,7 +6,7 @@ import Home from "./containers/Home";
 import Menu from "./components/Menu";
 import "./App.css";
 import { AnimatePresence } from "framer-motion";
-import { darkTheme, lightTheme } from "./theme";
+import { darkTheme } from "./theme";
 import { SnackbarProvider } from "notistack";
 import { useLocation } from "react-router-dom";
 
@@ -61,29 +61,12 @@ const AppShell: React.FC<{
 };
 
 const App: React.FC = () => {
-  const [darkMode, setDarkMode] = useState<boolean>(
-    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
-  );
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleThemeChange = (event: MediaQueryListEvent): void => {
-      setDarkMode(event.matches);
-    };
-    mediaQuery.addEventListener("change", handleThemeChange);
-    return () => mediaQuery.removeEventListener("change", handleThemeChange);
-  }, []);
-
-  const handleThemeChange = (): void => {
-    setDarkMode((prev) => !prev);
-  };
-
   return (
     <SnackbarProvider maxSnack={3}>
-      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Router>
-          <AppShell darkMode={darkMode} onThemeToggle={handleThemeChange} />
+          <AppShell darkMode={true} onThemeToggle={() => {}} />
         </Router>
       </ThemeProvider>
     </SnackbarProvider>

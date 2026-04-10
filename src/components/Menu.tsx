@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Box, IconButton, Switch, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import PersonIcon from "@mui/icons-material/Person";
 import WorkIcon from "@mui/icons-material/Work";
 import MailIcon from "@mui/icons-material/Mail";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+// import DarkModeIcon from "@mui/icons-material/DarkMode";
+// import LightModeIcon from "@mui/icons-material/LightMode";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -153,32 +153,6 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
           );
         })}
 
-        {/* Divider */}
-        <Box
-          sx={{
-            width: "1px",
-            height: 20,
-            mx: 0.5,
-            bgcolor: theme.palette.mode === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
-          }}
-        />
-
-        {/* Theme toggle */}
-        <IconButton
-          onClick={onThemeToggle}
-          aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-          size="small"
-          sx={{
-            color: "text.secondary",
-            "&:hover": { color: "text.primary", bgcolor: "transparent" },
-            "&:focus-visible": {
-              outline: "2px solid #6366F1",
-              outlineOffset: "2px",
-            },
-          }}
-        >
-          {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
-        </IconButton>
       </Box>
 
       {/* ── Mobile hamburger ─────────────────────────────────────────────── */}
@@ -354,40 +328,6 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
                   })}
                 </Box>
 
-                {/* Theme toggle row */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    mt: 3,
-                    pt: 3,
-                    borderTop: "1px solid",
-                    borderColor: "divider",
-                  }}
-                >
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    {darkMode ? (
-                      <DarkModeIcon fontSize="small" sx={{ color: "text.secondary" }} />
-                    ) : (
-                      <LightModeIcon fontSize="small" sx={{ color: "text.secondary" }} />
-                    )}
-                    <Typography sx={{ fontSize: "0.9rem", color: "text.secondary" }}>
-                      {darkMode ? "Dark mode" : "Light mode"}
-                    </Typography>
-                  </Box>
-                  <Switch
-                    checked={darkMode}
-                    onChange={onThemeToggle}
-                    inputProps={{ "aria-label": "Toggle dark mode" }}
-                    sx={{
-                      "& .MuiSwitch-thumb": { bgcolor: "primary.main" },
-                      "& .Mui-checked + .MuiSwitch-track": {
-                        bgcolor: alpha(theme.palette.primary.main, 0.4),
-                      },
-                    }}
-                  />
-                </Box>
               </motion.div>
             </>
           )}

@@ -6,6 +6,10 @@ declare module "@mui/material/styles" {
   }
 }
 
+// ─── Light theme — soft indigo ────────────────────────────────────────────────
+// The whole palette lives in the same indigo/violet family as the brand accents.
+// Background has a faint periwinkle tint so surfaces feel considered, not blank.
+// Text uses indigo-950 so even the prose feels on-palette.
 export const lightTheme = createTheme({
   palette: {
     mode: "light",
@@ -19,15 +23,15 @@ export const lightTheme = createTheme({
       light: "#06B6D4",
     },
     background: {
-      default: "#FAFAFA",
-      paper: "#FFFFFF",
-      card: "#F4F4F5",
+      default: "#EEEDF8",   // periwinkle-tinted base — barely lavender, clearly not grey
+      paper: "#F5F4FC",     // slightly lighter for elevated surfaces
+      card: "#E6E4F4",      // a touch more saturated for card insets
     },
     text: {
-      primary: "#09090B",
-      secondary: "#71717A",
+      primary: "#1E1B4B",   // indigo-950 — dark with a genuine purple cast
+      secondary: "#6B6890", // muted lavender-slate — warm but not grey
     },
-    divider: "rgba(0, 0, 0, 0.08)",
+    divider: "rgba(79, 70, 229, 0.09)",
   },
   typography: {
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
@@ -83,6 +87,24 @@ export const lightTheme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          // Subtle grain texture — same feTurbulence trick as Home
+          "&::before": {
+            content: '""',
+            position: "fixed",
+            inset: 0,
+            zIndex: -1,
+            pointerEvents: "none",
+            opacity: 0.03,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundRepeat: "repeat",
+            backgroundSize: "128px 128px",
+          },
+        },
+      },
+    },
     MuiPaper: {
       styleOverrides: {
         root: {
@@ -95,10 +117,10 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
-          background: "rgba(255, 255, 255, 0.9)",
+          background: "rgba(245,244,252,0.88)",
           backdropFilter: "blur(12px)",
-          border: "1px solid rgba(0, 0, 0, 0.06)",
-          boxShadow: "0 0 0 1px rgba(0,0,0,0.03), 0 4px 24px rgba(0,0,0,0.06)",
+          border: "1px solid rgba(79,70,229,0.09)",
+          boxShadow: "0 1px 2px rgba(79,70,229,0.05), 0 4px 24px rgba(79,70,229,0.08)",
           transition: "border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease",
         },
       },
@@ -118,7 +140,7 @@ export const lightTheme = createTheme({
           background: "linear-gradient(135deg, #6366F1, #4F46E5)",
           color: "#FFFFFF",
           "&:hover": {
-            boxShadow: "0 4px 16px rgba(99, 102, 241, 0.4)",
+            boxShadow: "0 4px 16px rgba(99, 102, 241, 0.35)",
             background: "linear-gradient(135deg, #818CF8, #6366F1)",
             transform: "translateY(-1px)",
           },
@@ -127,10 +149,10 @@ export const lightTheme = createTheme({
           },
         },
         outlined: {
-          borderColor: "rgba(0, 0, 0, 0.15)",
+          borderColor: "rgba(79, 70, 229, 0.18)",
           "&:hover": {
             borderColor: "#4F46E5",
-            backgroundColor: "rgba(79, 70, 229, 0.08)",
+            backgroundColor: "rgba(79, 70, 229, 0.06)",
           },
         },
       },
@@ -143,9 +165,9 @@ export const lightTheme = createTheme({
           fontSize: "0.8125rem",
         },
         filled: {
-          backgroundColor: "rgba(79, 70, 229, 0.1)",
+          backgroundColor: "rgba(79, 70, 229, 0.10)",
           color: "#4F46E5",
-          border: "1px solid rgba(79, 70, 229, 0.15)",
+          border: "1px solid rgba(79, 70, 229, 0.16)",
         },
       },
     },
@@ -155,15 +177,15 @@ export const lightTheme = createTheme({
           "& .MuiOutlinedInput-root": {
             borderRadius: 10,
             "& fieldset": {
-              borderColor: "rgba(0, 0, 0, 0.1)",
+              borderColor: "rgba(79, 70, 229, 0.15)",
               transition: "border-color 0.2s ease",
             },
             "&:hover fieldset": {
-              borderColor: "rgba(0, 0, 0, 0.2)",
+              borderColor: "rgba(79, 70, 229, 0.30)",
             },
             "&.Mui-focused fieldset": {
               borderColor: "#4F46E5",
-              boxShadow: "0 0 0 3px rgba(79, 70, 229, 0.15)",
+              boxShadow: "0 0 0 3px rgba(79, 70, 229, 0.12)",
             },
           },
         },
@@ -173,7 +195,7 @@ export const lightTheme = createTheme({
       styleOverrides: {
         paper: {
           borderRadius: 16,
-          border: "1px solid rgba(0, 0, 0, 0.06)",
+          border: "1px solid rgba(79, 70, 229, 0.09)",
           backgroundImage: "none",
         },
       },
