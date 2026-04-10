@@ -1,14 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
-import {
-  Box,
-  Typography,
-  Chip,
-  Stack,
-  Button,
-  Link,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Typography, Chip, Stack, Button, Link, useTheme, useMediaQuery } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import CloseIcon from "@mui/icons-material/Close";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -21,8 +12,15 @@ import Transition from "../components/Transition";
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const THIS_SITE_TECHS = [
-  "React", "TypeScript", "MUI v7", "Framer Motion", "Three.js",
-  "Notistack", "Docker", "Kubernetes", "AWS",
+  "React",
+  "TypeScript",
+  "MUI v7",
+  "Framer Motion",
+  "Three.js",
+  "Notistack",
+  "Docker",
+  "Kubernetes",
+  "AWS",
 ];
 
 const projects = [
@@ -99,14 +97,9 @@ const SpotlightCard: React.FC<{
         borderRadius: 16,
         overflow: "hidden",
         cursor: onClick ? "pointer" : "default",
-        background:
-          theme.palette.mode === "dark"
-            ? "rgba(24,24,27,0.9)"
-            : "rgba(255,255,255,0.9)",
+        background: theme.palette.mode === "dark" ? "rgba(24,24,27,0.9)" : "rgba(255,255,255,0.9)",
         border: `1px solid ${
-          theme.palette.mode === "dark"
-            ? "rgba(255,255,255,0.06)"
-            : "rgba(0,0,0,0.06)"
+          theme.palette.mode === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"
         }`,
         backdropFilter: "blur(12px)",
         ...style,
@@ -229,19 +222,10 @@ const Portfolio: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Typography
-            variant="h2"
-            align="center"
-            sx={{ mb: 1 }}
-          >
+          <Typography variant="h2" align="center" sx={{ mb: 1 }}>
             Portfolio
           </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            align="center"
-            sx={{ mb: 5 }}
-          >
+          <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 5 }}>
             A selection of things I've built
           </Typography>
         </motion.div>
@@ -282,10 +266,9 @@ const Portfolio: React.FC = () => {
                     This Website
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-                    This portfolio showcases modern web development. Built with
-                    a focus on responsiveness, smooth animations, and an
-                    engaging UI. Deployed to AWS S3 and experimented with
-                    Docker and Minikube Kubernetes clusters.
+                    This portfolio showcases modern web development. Built with a focus on
+                    responsiveness, smooth animations, and an engaging UI. Deployed to AWS S3 and
+                    experimented with Docker and Minikube Kubernetes clusters.
                   </Typography>
                   <Stack direction="row" flexWrap="wrap" gap={0.75} sx={{ mb: 2 }}>
                     {THIS_SITE_TECHS.map((t) => (
@@ -317,8 +300,7 @@ const Portfolio: React.FC = () => {
                     width: { xs: "100%", md: 320 },
                     borderRadius: 2,
                     overflow: "hidden",
-                    background:
-                      theme.palette.mode === "dark" ? "#09090B" : "#1e1e2e",
+                    background: theme.palette.mode === "dark" ? "#09090B" : "#1e1e2e",
                     border: "1px solid rgba(255,255,255,0.06)",
                   }}
                 >
@@ -352,11 +334,7 @@ const Portfolio: React.FC = () => {
                   </Box>
                   <Box sx={{ p: 1.5 }}>
                     {TERMINAL_LINES.map((line) => (
-                      <TerminalLine
-                        key={line.text}
-                        shouldReduce={!!shouldReduce}
-                        {...line}
-                      />
+                      <TerminalLine key={line.text} shouldReduce={!!shouldReduce} {...line} />
                     ))}
                   </Box>
                 </Box>
@@ -498,9 +476,7 @@ const Portfolio: React.FC = () => {
                       ? "rgba(24,24,27,0.98)"
                       : "rgba(255,255,255,0.98)",
                   border: `1px solid ${
-                    theme.palette.mode === "dark"
-                      ? "rgba(255,255,255,0.08)"
-                      : "rgba(0,0,0,0.08)"
+                    theme.palette.mode === "dark" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"
                   }`,
                   boxShadow: "0 24px 64px rgba(0,0,0,0.5)",
                 }}
@@ -554,7 +530,11 @@ const Portfolio: React.FC = () => {
                   <Typography variant="body2" color="text.secondary" paragraph>
                     {selected.longDescription}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: "block" }}>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ mb: 1, display: "block" }}
+                  >
                     TECHNOLOGIES
                   </Typography>
                   <Stack direction="row" flexWrap="wrap" gap={0.75} sx={{ mb: 2.5 }}>

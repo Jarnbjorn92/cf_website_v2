@@ -17,9 +17,9 @@ interface MenuProps {
 }
 
 const NAV_ITEMS = [
-  { label: "About",     sectionId: "about",     icon: <PersonIcon fontSize="small" /> },
-  { label: "Portfolio", sectionId: "portfolio",  icon: <WorkIcon fontSize="small" /> },
-  { label: "Contact",   sectionId: "contact",    icon: <MailIcon fontSize="small" /> },
+  { label: "About", sectionId: "about", icon: <PersonIcon fontSize="small" /> },
+  { label: "Portfolio", sectionId: "portfolio", icon: <WorkIcon fontSize="small" /> },
+  { label: "Contact", sectionId: "contact", icon: <MailIcon fontSize="small" /> },
 ];
 
 const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
@@ -35,8 +35,10 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
       const el = document.getElementById(sectionId);
       if (!el) return;
       const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(sectionId); },
-        { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(sectionId);
+        },
+        { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
       );
       obs.observe(el);
       observers.push(obs);
@@ -44,10 +46,7 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  const glassBg =
-    theme.palette.mode === "dark"
-      ? "rgba(9,9,11,0.75)"
-      : "rgba(250,250,250,0.75)";
+  const glassBg = theme.palette.mode === "dark" ? "rgba(9,9,11,0.75)" : "rgba(250,250,250,0.75)";
   const glassBorder =
     theme.palette.mode === "dark"
       ? "1px solid rgba(255,255,255,0.08)"
@@ -129,9 +128,7 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
                   background: "transparent",
                   borderRadius: 99,
                   cursor: "pointer",
-                  color: isActive
-                    ? "primary.main"
-                    : "text.secondary",
+                  color: isActive ? "primary.main" : "text.secondary",
                   transition: "color 150ms ease",
                   "&:hover": { color: "text.primary" },
                   "&:focus-visible": {
@@ -162,9 +159,7 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
             width: "1px",
             height: 20,
             mx: 0.5,
-            bgcolor: theme.palette.mode === "dark"
-              ? "rgba(255,255,255,0.1)"
-              : "rgba(0,0,0,0.1)",
+            bgcolor: theme.palette.mode === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
           }}
         />
 
@@ -182,11 +177,7 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
             },
           }}
         >
-          {darkMode ? (
-            <LightModeIcon fontSize="small" />
-          ) : (
-            <DarkModeIcon fontSize="small" />
-          )}
+          {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
         </IconButton>
       </Box>
 
@@ -354,9 +345,7 @@ const Menu: React.FC<MenuProps> = ({ darkMode, onThemeToggle, onNavigate }) => {
                           }}
                         >
                           {item.icon}
-                          <Typography
-                            sx={{ fontSize: "1rem", fontWeight: isActive ? 600 : 500 }}
-                          >
+                          <Typography sx={{ fontSize: "1rem", fontWeight: isActive ? 600 : 500 }}>
                             {item.label}
                           </Typography>
                         </Box>

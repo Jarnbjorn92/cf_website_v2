@@ -1,9 +1,5 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Box } from "@mui/material";
 import Home from "./containers/Home";
@@ -15,9 +11,9 @@ import { SnackbarProvider } from "notistack";
 import { useLocation } from "react-router-dom";
 
 const LandingPage = lazy(() => import("./containers/LandingPage"));
-const About      = lazy(() => import("./containers/About"));
-const Portfolio  = lazy(() => import("./containers/Portfolio"));
-const Contact    = lazy(() => import("./containers/Contact"));
+const About = lazy(() => import("./containers/About"));
+const Portfolio = lazy(() => import("./containers/Portfolio"));
+const Contact = lazy(() => import("./containers/Contact"));
 
 const PageSkeleton: React.FC = () => (
   <Box sx={{ height: "100vh", bgcolor: "background.default" }} />
@@ -57,11 +53,7 @@ const AppShell: React.FC<{
   return (
     <>
       {showNav && (
-        <Menu
-          darkMode={darkMode}
-          onThemeToggle={onThemeToggle}
-          onNavigate={handleNavigation}
-        />
+        <Menu darkMode={darkMode} onThemeToggle={onThemeToggle} onNavigate={handleNavigation} />
       )}
       <AnimatedRoutes darkMode={darkMode} />
     </>
@@ -70,7 +62,7 @@ const AppShell: React.FC<{
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState<boolean>(
-    () => window.matchMedia("(prefers-color-scheme: dark)").matches
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
   );
 
   useEffect(() => {

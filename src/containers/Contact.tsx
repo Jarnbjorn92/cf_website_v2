@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  Stack,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Typography, Button, Stack, useTheme, useMediaQuery } from "@mui/material";
 import { CloudDownload, Send, Check, LocationOn, Schedule } from "@mui/icons-material";
 import UseAnimations from "react-useanimations";
 import github from "react-useanimations/lib/github";
@@ -44,16 +37,16 @@ const FloatingInput: React.FC<{
   const borderColor = error
     ? "#EF4444"
     : focused
-    ? "#6366F1"
-    : isDark
-    ? "rgba(255,255,255,0.10)"
-    : "rgba(0,0,0,0.10)";
+      ? "#6366F1"
+      : isDark
+        ? "rgba(255,255,255,0.10)"
+        : "rgba(0,0,0,0.10)";
 
   const boxShadow = error
     ? "0 0 0 3px rgba(239,68,68,0.15)"
     : focused
-    ? "0 0 0 3px rgba(99,102,241,0.15)"
-    : "none";
+      ? "0 0 0 3px rgba(99,102,241,0.15)"
+      : "none";
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -78,7 +71,9 @@ const FloatingInput: React.FC<{
       >
         {label}
         {required && (
-          <Box component="span" sx={{ color: "error.main", ml: 0.25 }}>*</Box>
+          <Box component="span" sx={{ color: "error.main", ml: 0.25 }}>
+            *
+          </Box>
         )}
       </Typography>
 
@@ -124,7 +119,14 @@ const FloatingInput: React.FC<{
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
           >
-            <Typography sx={{ fontSize: "0.72rem", color: "error.main", mt: 0.5, ml: 0.5 }}>
+            <Typography
+              sx={{
+                fontSize: "0.72rem",
+                color: "error.main",
+                mt: 0.5,
+                ml: 0.5,
+              }}
+            >
               This field is required
             </Typography>
           </motion.div>
@@ -136,12 +138,27 @@ const FloatingInput: React.FC<{
 
 // ─── Submit button ────────────────────────────────────────────────────────────
 
-const SubmitButton: React.FC<{ state: SubmitState; shouldReduce: boolean }> = ({ state, shouldReduce }) => {
+const SubmitButton: React.FC<{ state: SubmitState; shouldReduce: boolean }> = ({
+  state,
+  shouldReduce,
+}) => {
   const configs: Record<SubmitState, { label: string; icon: React.ReactNode; bg: string }> = {
-    idle:    { label: "Send Message", icon: <Send fontSize="small" />,  bg: "#6366F1" },
-    loading: { label: "Sending…",     icon: null,                       bg: "#4F46E5" },
-    success: { label: "Sent!",        icon: <Check fontSize="small" />, bg: "#22c55e" },
-    error:   { label: "Try Again",    icon: <Send fontSize="small" />,  bg: "#EF4444" },
+    idle: {
+      label: "Send Message",
+      icon: <Send fontSize="small" />,
+      bg: "#6366F1",
+    },
+    loading: { label: "Sending…", icon: null, bg: "#4F46E5" },
+    success: {
+      label: "Sent!",
+      icon: <Check fontSize="small" />,
+      bg: "#22c55e",
+    },
+    error: {
+      label: "Try Again",
+      icon: <Send fontSize="small" />,
+      bg: "#EF4444",
+    },
   };
   const cfg = configs[state];
 
@@ -184,13 +201,16 @@ const SubmitButton: React.FC<{ state: SubmitState; shouldReduce: boolean }> = ({
               animate={{ rotate: 360 }}
               transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
               style={{
-                width: 18, height: 18,
+                width: 18,
+                height: 18,
                 borderRadius: "50%",
                 border: "2px solid rgba(255,255,255,0.3)",
                 borderTopColor: "#fff",
               }}
             />
-          ) : cfg.icon}
+          ) : (
+            cfg.icon
+          )}
           {cfg.label}
         </motion.span>
       </AnimatePresence>
@@ -201,20 +221,28 @@ const SubmitButton: React.FC<{ state: SubmitState; shouldReduce: boolean }> = ({
 // ─── Contact ──────────────────────────────────────────────────────────────────
 
 const SOCIAL_LINKS = [
-  { url: "https://github.com/Jarnbjorn92",              anim: github,   label: "GitHub" },
-  { url: "https://www.linkedin.com/in/connor-j-fleming/", anim: linkedin, label: "LinkedIn" },
+  { url: "https://github.com/Jarnbjorn92", anim: github, label: "GitHub" },
+  {
+    url: "https://www.linkedin.com/in/connor-j-fleming/",
+    anim: linkedin,
+    label: "LinkedIn",
+  },
 ];
 
 const Contact: React.FC = () => {
-  const theme   = useTheme();
+  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const { enqueueSnackbar } = useSnackbar();
   const shouldReduce = useReducedMotion();
   const isDark = theme.palette.mode === "dark";
 
-  const [formData, setFormData]     = useState<ContactFormData>({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
-  const [errors, setErrors]         = useState<Partial<ContactFormData>>({});
+  const [errors, setErrors] = useState<Partial<ContactFormData>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -226,8 +254,8 @@ const Contact: React.FC = () => {
 
   const validate = (): boolean => {
     const newErrors: Partial<ContactFormData> = {};
-    if (!formData.name.trim())    newErrors.name    = "required";
-    if (!formData.email.trim())   newErrors.email   = "required";
+    if (!formData.name.trim()) newErrors.name = "required";
+    if (!formData.email.trim()) newErrors.email = "required";
     if (!formData.message.trim()) newErrors.message = "required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -244,7 +272,10 @@ const Contact: React.FC = () => {
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
           access_key: process.env.REACT_APP_WEB3FORMS_ACCESS_KEY,
           ...formData,
@@ -253,14 +284,18 @@ const Contact: React.FC = () => {
       if (response.ok) {
         setSubmitState("success");
         setFormData({ name: "", email: "", message: "" });
-        enqueueSnackbar("Thank you! Your message has been sent.", { variant: "success" });
+        enqueueSnackbar("Thank you! Your message has been sent.", {
+          variant: "success",
+        });
         setTimeout(() => setSubmitState("idle"), 3000);
       } else {
         throw new Error("Failed");
       }
     } catch {
       setSubmitState("error");
-      enqueueSnackbar("Oops! Something went wrong. Please try again.", { variant: "error" });
+      enqueueSnackbar("Oops! Something went wrong. Please try again.", {
+        variant: "error",
+      });
       setTimeout(() => setSubmitState("idle"), 1500);
     }
   };
@@ -283,8 +318,8 @@ const Contact: React.FC = () => {
                radial-gradient(ellipse at 85% 25%, rgba(6,182,212,0.07) 0%, transparent 48%)`,
           animation: shouldReduce ? "none" : "aurora-drift 20s ease-in-out infinite alternate",
           "@keyframes aurora-drift": {
-            "0%":   { transform: "scale(1)",    opacity: 0.8 },
-            "50%":  { transform: "scale(1.05)", opacity: 1   },
+            "0%": { transform: "scale(1)", opacity: 0.8 },
+            "50%": { transform: "scale(1.05)", opacity: 1 },
             "100%": { transform: "scale(0.97)", opacity: 0.9 },
           },
         }}
@@ -335,28 +370,59 @@ const Contact: React.FC = () => {
               >
                 <motion.div
                   animate={shouldReduce ? {} : { scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 >
-                  <Box sx={{ width: 7, height: 7, borderRadius: "50%", bgcolor: "#22c55e", boxShadow: "0 0 6px #22c55e88" }} />
+                  <Box
+                    sx={{
+                      width: 7,
+                      height: 7,
+                      borderRadius: "50%",
+                      bgcolor: "#22c55e",
+                      boxShadow: "0 0 6px #22c55e88",
+                    }}
+                  />
                 </motion.div>
-                <Typography sx={{ fontSize: "0.78rem", fontWeight: 500, color: "#22c55e" }}>
+                <Typography
+                  sx={{
+                    fontSize: "0.78rem",
+                    fontWeight: 500,
+                    color: "#22c55e",
+                  }}
+                >
                   Open to opportunities
                 </Typography>
               </Box>
 
               <Typography variant="h2" sx={{ mb: 2, lineHeight: 1.15 }}>
-                Let's work<br />together
+                Let's work
+                <br />
+                together
               </Typography>
 
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.8, maxWidth: 360 }}>
-                Whether it's a full-time role, a freelance project, or just a conversation — I'd love to hear from you.
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                sx={{ mb: 4, lineHeight: 1.8, maxWidth: 360 }}
+              >
+                Whether it's a full-time role, a freelance project, or just a conversation - I'd
+                love to hear from you.
               </Typography>
 
               {/* Info rows */}
               <Stack spacing={2} sx={{ mb: 5 }}>
                 {[
-                  { icon: <LocationOn fontSize="small" />, text: "Scotland, UK" },
-                  { icon: <Schedule fontSize="small" />,   text: "GMT / BST — flexible for remote" },
+                  {
+                    icon: <LocationOn fontSize="small" />,
+                    text: "Scotland, UK",
+                  },
+                  {
+                    icon: <Schedule fontSize="small" />,
+                    text: "GMT / BST - flexible for remote",
+                  },
                 ].map(({ icon, text }) => (
                   <Box key={text} sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
                     <Box
@@ -374,17 +440,32 @@ const Contact: React.FC = () => {
                     >
                       {icon}
                     </Box>
-                    <Typography variant="body2" color="text.secondary">{text}</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {text}
+                    </Typography>
                   </Box>
                 ))}
               </Stack>
 
               {/* Divider */}
-              <Box sx={{ height: "1px", bgcolor: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)", mb: 4 }} />
+              <Box
+                sx={{
+                  height: "1px",
+                  bgcolor: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
+                  mb: 4,
+                }}
+              />
 
               {/* Social icons */}
               <Typography
-                sx={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "text.disabled", mb: 2 }}
+                sx={{
+                  fontSize: "0.72rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "text.disabled",
+                  mb: 2,
+                }}
               >
                 Find me on
               </Typography>
@@ -411,7 +492,8 @@ const Contact: React.FC = () => {
                         border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
                         background: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.02)",
                         backdropFilter: "blur(8px)",
-                        transition: "border-color 200ms ease, box-shadow 200ms ease, background 200ms ease",
+                        transition:
+                          "border-color 200ms ease, box-shadow 200ms ease, background 200ms ease",
                         "&:hover": {
                           borderColor: "#6366F1",
                           background: isDark ? "rgba(99,102,241,0.08)" : "rgba(99,102,241,0.05)",
@@ -426,7 +508,14 @@ const Contact: React.FC = () => {
                         autoplay
                         loop
                       />
-                      <Typography sx={{ fontSize: "0.65rem", fontWeight: 500, color: "text.secondary", lineHeight: 1 }}>
+                      <Typography
+                        sx={{
+                          fontSize: "0.65rem",
+                          fontWeight: 500,
+                          color: "text.secondary",
+                          lineHeight: 1,
+                        }}
+                      >
                         {label}
                       </Typography>
                     </Button>
@@ -463,7 +552,11 @@ const Contact: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.55, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{
+              duration: 0.55,
+              delay: 0.1,
+              ease: [0.25, 0.1, 0.25, 1],
+            }}
           >
             {/* Gradient border wrapper */}
             <Box
@@ -484,7 +577,9 @@ const Contact: React.FC = () => {
                   backdropFilter: "blur(20px)",
                 }}
               >
-                <Typography variant="h5" sx={{ mb: 0.5, fontWeight: 700 }}>Send a message</Typography>
+                <Typography variant="h5" sx={{ mb: 0.5, fontWeight: 700 }}>
+                  Send a message
+                </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3.5 }}>
                   I typically reply within 24 hours.
                 </Typography>

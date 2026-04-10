@@ -8,11 +8,7 @@ import { useTheme } from "@mui/material/styles";
 import ParticleBackground from "../components/ParticleBackground";
 import * as THREE from "three";
 import Transition from "../components/Transition";
-import {
-  motion,
-  useSpring,
-  useReducedMotion,
-} from "framer-motion";
+import { motion, useSpring, useReducedMotion } from "framer-motion";
 
 interface HomeProps {
   darkMode: boolean;
@@ -136,10 +132,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
 
   useEffect(() => {
     const handleMouseDown = (event: MouseEvent) => {
-      if (
-        socialButtonsRef.current &&
-        !socialButtonsRef.current.contains(event.target as Node)
-      ) {
+      if (socialButtonsRef.current && !socialButtonsRef.current.contains(event.target as Node)) {
         setTouchStart(Date.now());
       }
     };
@@ -155,10 +148,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
       setTouchStart(null);
     };
     const handleTouchStart = (event: TouchEvent) => {
-      if (
-        socialButtonsRef.current &&
-        !socialButtonsRef.current.contains(event.target as Node)
-      ) {
+      if (socialButtonsRef.current && !socialButtonsRef.current.contains(event.target as Node)) {
         setTouchStart(Date.now());
       }
     };
@@ -241,9 +231,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
               borderRadius: 99,
               backdropFilter: "blur(12px)",
               background:
-                theme.palette.mode === "dark"
-                  ? "rgba(255,255,255,0.06)"
-                  : "rgba(0,0,0,0.04)",
+                theme.palette.mode === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)",
               border:
                 theme.palette.mode === "dark"
                   ? "1px solid rgba(255,255,255,0.1)"
@@ -252,11 +240,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
           >
             {/* Pulsing dot */}
             <motion.div
-              animate={
-                shouldReduceMotion
-                  ? {}
-                  : { scale: [1, 1.6, 1], opacity: [1, 0.35, 1] }
-              }
+              animate={shouldReduceMotion ? {} : { scale: [1, 1.6, 1], opacity: [1, 0.35, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               style={{ display: "flex" }}
             >
@@ -318,9 +302,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              animation: shouldReduceMotion
-                ? "none"
-                : "shimmer 3.5s linear infinite",
+              animation: shouldReduceMotion ? "none" : "shimmer 3.5s linear infinite",
               "@keyframes shimmer": {
                 "0%": { backgroundPosition: "200% center" },
                 "100%": { backgroundPosition: "-200% center" },
@@ -365,12 +347,7 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
             </MagneticButton>
 
             <MagneticButton
-              onClick={(e) =>
-                handleSocialClick(
-                  "https://www.linkedin.com/in/connor-j-fleming/",
-                  e
-                )
-              }
+              onClick={(e) => handleSocialClick("https://www.linkedin.com/in/connor-j-fleming/", e)}
               onMouseDown={(e) => e.stopPropagation()}
               onMouseUp={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}

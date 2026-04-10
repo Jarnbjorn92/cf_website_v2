@@ -26,14 +26,8 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color, secondar
     const ctx = canvas.getContext("2d");
     if (ctx) {
       const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(
-        0,
-        isDark ? "rgba(255,255,255,1)" : "rgba(0,0,0,1)"
-      );
-      gradient.addColorStop(
-        1,
-        isDark ? "rgba(255,255,255,0)" : "rgba(0,0,0,0)"
-      );
+      gradient.addColorStop(0, isDark ? "rgba(255,255,255,1)" : "rgba(0,0,0,1)");
+      gradient.addColorStop(1, isDark ? "rgba(255,255,255,0)" : "rgba(0,0,0,0)");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 32, 32);
     }
@@ -52,8 +46,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color, secondar
     lastTimeRef.current = time;
 
     if (pointsRef.current && velocitiesRef.current) {
-      const positions = pointsRef.current.geometry.attributes.position
-        .array as Float32Array;
+      const positions = pointsRef.current.geometry.attributes.position.array as Float32Array;
       const velocities = velocitiesRef.current;
 
       for (let i = 0; i < positions.length; i += 3) {
@@ -86,7 +79,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color, secondar
       75,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      1000,
     );
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -195,12 +188,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ color, secondar
     }
   }, [theme.palette.mode, color, secondaryColor, createParticleTexture]);
 
-  return (
-    <div
-      ref={mountRef}
-      style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }}
-    />
-  );
+  return <div ref={mountRef} style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }} />;
 };
 
 export default ParticleBackground;

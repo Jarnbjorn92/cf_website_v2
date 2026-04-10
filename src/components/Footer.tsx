@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  IconButton,
-  Stack,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Typography, IconButton, Stack, useTheme, useMediaQuery } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
@@ -46,18 +39,12 @@ const Footer: React.FC = () => {
             sx={{ color: "#06B6D4" }}
             aria-label="LinkedIn"
             size={isMobile ? "small" : "large"}
-            onClick={() =>
-              handleSocialClick("https://www.linkedin.com/in/connor-j-fleming/")
-            }
+            onClick={() => handleSocialClick("https://www.linkedin.com/in/connor-j-fleming/")}
           >
             <LinkedInIcon />
           </IconButton>
         </Stack>
-        <Typography
-          variant={isMobile ? "body2" : "body1"}
-          color="text.secondary"
-          align="center"
-        >
+        <Typography variant={isMobile ? "body2" : "body1"} color="text.secondary" align="center">
           © {new Date().getFullYear()} Connor Fleming. All rights reserved.
         </Typography>
       </Stack>

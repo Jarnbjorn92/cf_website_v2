@@ -15,8 +15,7 @@ const GradientDivider = () => (
       maxWidth: "80vw",
       mx: "auto",
       my: { xs: 6, md: 10 },
-      background:
-        "linear-gradient(90deg, transparent, #6366F1, #06B6D4, transparent)",
+      background: "linear-gradient(90deg, transparent, #6366F1, #06B6D4, transparent)",
     }}
   />
 );
@@ -37,10 +36,7 @@ const LandingPage: React.FC = () => {
           px: isMobile ? 2 : 4,
         }}
       >
-        <div
-          id="about"
-          style={{ marginTop: isMobile ? "4rem" : "2rem" }}
-        >
+        <div id="about" style={{ marginTop: isMobile ? "4rem" : "2rem" }}>
           <About />
         </div>
         <GradientDivider />

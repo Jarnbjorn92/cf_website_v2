@@ -1,11 +1,5 @@
 import React, { useRef, useCallback } from "react";
-import {
-  Box,
-  Typography,
-  useTheme,
-  useMediaQuery,
-  Avatar,
-} from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery, Avatar } from "@mui/material";
 import CodeIcon from "@mui/icons-material/Code";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import CloudIcon from "@mui/icons-material/Cloud";
@@ -17,9 +11,22 @@ import profileImage from "../assets/me.jpeg";
 
 const TIMELINE = [
   { year: "2023", label: "CodeClan Graduate", detail: "Intensive software dev bootcamp, Glasgow" },
-  { year: "2023", label: "First Dev Role", detail: "Systems software developer building enterprise systems and mobile applications" },
-  { year: "2025", label: "Jnr Full-Stack Developer", detail: "Cloud team full-stack development with IoT devices and ML data pipelines" },
-  { year: "2026+", label: "Full-Stack Developer", detail: "Building and expanding on existing full-stack applications for network and IoT platforms" },
+  {
+    year: "2023",
+    label: "First Dev Role",
+    detail: "Systems software developer building enterprise systems and mobile applications",
+  },
+  {
+    year: "2025",
+    label: "Jnr Full-Stack Developer",
+    detail: "Cloud team full-stack development with IoT devices and ML data pipelines",
+  },
+  {
+    year: "2026+",
+    label: "Full-Stack Developer",
+    detail:
+      "Building and expanding on existing full-stack applications for network and IoT platforms",
+  },
 ];
 
 const SKILL_CATEGORIES = [
@@ -33,7 +40,18 @@ const SKILL_CATEGORIES = [
     label: "Frameworks",
     icon: <AccountTreeIcon fontSize="small" />,
     accent: "#06B6D4",
-    skills: ["React", "Vue.js", "React Native", "Node.js", "Express", "Fastify", "Django", "Flutter", "Spring Boot", "Prisma"],
+    skills: [
+      "React",
+      "Vue.js",
+      "React Native",
+      "Node.js",
+      "Express",
+      "Fastify",
+      "Django",
+      "Flutter",
+      "Spring Boot",
+      "Prisma",
+    ],
   },
   {
     label: "Cloud & DevOps",
@@ -51,7 +69,17 @@ const SKILL_CATEGORIES = [
     label: "Tools",
     icon: <BuildIcon fontSize="small" />,
     accent: "#818CF8",
-    skills: ["Git", "CI/CD", "Agile/Scrum", "Jira", "Figma", "Jest", "Cypress", "REST APIs", "WebSockets"],
+    skills: [
+      "Git",
+      "CI/CD",
+      "Agile/Scrum",
+      "Jira",
+      "Figma",
+      "Jest",
+      "Cypress",
+      "REST APIs",
+      "WebSockets",
+    ],
   },
 ];
 
@@ -240,11 +268,11 @@ const MarqueeRow: React.FC<{
         "&:hover": { animationPlayState: "paused" },
         "@keyframes marquee-left": {
           from: { transform: "translateX(0)" },
-          to:   { transform: "translateX(-50%)" },
+          to: { transform: "translateX(-50%)" },
         },
         "@keyframes marquee-right": {
           from: { transform: "translateX(-50%)" },
-          to:   { transform: "translateX(0)" },
+          to: { transform: "translateX(0)" },
         },
       }}
     >
@@ -273,8 +301,8 @@ const MarqueeRow: React.FC<{
 
 const About: React.FC = () => {
   const theme = useTheme();
-  const isMobile  = useMediaQuery(theme.breakpoints.down("md"));
-  const isTablet  = useMediaQuery(theme.breakpoints.down("lg"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("lg"));
   const shouldReduce = useReducedMotion();
   const isDark = theme.palette.mode === "dark";
 
@@ -305,7 +333,9 @@ const About: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Typography variant="h2" sx={{ mb: 3 }}>About Me</Typography>
+              <Typography variant="h2" sx={{ mb: 3 }}>
+                About Me
+              </Typography>
             </motion.div>
             {BIO_PARAS.map((para, pi) => (
               <motion.div
@@ -322,20 +352,43 @@ const About: React.FC = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexShrink: 0, position: "relative", width: isMobile ? 200 : 260, height: isMobile ? 200 : 260 }}>
+          <Box
+            sx={{
+              flexShrink: 0,
+              position: "relative",
+              width: isMobile ? 200 : 260,
+              height: isMobile ? 200 : 260,
+            }}
+          >
             <Box
               aria-hidden="true"
               sx={{
                 position: "absolute",
                 inset: -6,
                 borderRadius: "50%",
-                background: "conic-gradient(from 0deg, #6366F1, #7C3AED, #06B6D4, #818CF8, #6366F1)",
+                background:
+                  "conic-gradient(from 0deg, #6366F1, #7C3AED, #06B6D4, #818CF8, #6366F1)",
                 animation: shouldReduce ? "none" : "halo-spin 4s linear infinite",
-                "@keyframes halo-spin": { from: { transform: "rotate(0deg)" }, to: { transform: "rotate(360deg)" } },
+                "@keyframes halo-spin": {
+                  from: { transform: "rotate(0deg)" },
+                  to: { transform: "rotate(360deg)" },
+                },
               }}
             />
-            <Box aria-hidden="true" sx={{ position: "absolute", inset: -2, borderRadius: "50%", background: isDark ? "#09090B" : "#FAFAFA" }} />
-            <Avatar alt="Connor Fleming" src={profileImage} sx={{ position: "relative", width: "100%", height: "100%" }} />
+            <Box
+              aria-hidden="true"
+              sx={{
+                position: "absolute",
+                inset: -2,
+                borderRadius: "50%",
+                background: isDark ? "#09090B" : "#FAFAFA",
+              }}
+            />
+            <Avatar
+              alt="Connor Fleming"
+              src={profileImage}
+              sx={{ position: "relative", width: "100%", height: "100%" }}
+            />
           </Box>
         </Box>
 
@@ -346,10 +399,19 @@ const About: React.FC = () => {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5 }}
         >
-          <Typography variant="h3" sx={{ mb: 4 }}>Journey</Typography>
+          <Typography variant="h3" sx={{ mb: 4 }}>
+            Journey
+          </Typography>
         </motion.div>
 
-        <Box sx={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 2, mb: 10 }}>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)",
+            gap: 2,
+            mb: 10,
+          }}
+        >
           {TIMELINE.map((item, i) => (
             <motion.div
               key={item.year}
@@ -370,9 +432,18 @@ const About: React.FC = () => {
                   "&:hover": { borderTopColor: "#06B6D4", transform: "translateY(-2px)" },
                 }}
               >
-                <Typography variant="caption" sx={{ color: "primary.main", display: "block", mb: 0.5 }}>{item.year}</Typography>
-                <Typography variant="h6" sx={{ fontSize: "0.95rem", mb: 0.5 }}>{item.label}</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.8rem" }}>{item.detail}</Typography>
+                <Typography
+                  variant="caption"
+                  sx={{ color: "primary.main", display: "block", mb: 0.5 }}
+                >
+                  {item.year}
+                </Typography>
+                <Typography variant="h6" sx={{ fontSize: "0.95rem", mb: 0.5 }}>
+                  {item.label}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.8rem" }}>
+                  {item.detail}
+                </Typography>
               </Box>
             </motion.div>
           ))}
@@ -385,8 +456,12 @@ const About: React.FC = () => {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5 }}
         >
-          <Typography variant="h3" sx={{ mb: 0.5 }}>Skills</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>Technologies and tools I work with</Typography>
+          <Typography variant="h3" sx={{ mb: 0.5 }}>
+            Skills
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+            Technologies and tools I work with
+          </Typography>
         </motion.div>
 
         {/* Dual scrolling marquee */}
@@ -403,9 +478,21 @@ const About: React.FC = () => {
         </motion.div>
 
         {/* Bento skill grid */}
-        <Box sx={{ display: "grid", gap: 2, gridTemplateColumns: isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 2fr" }}>
+        <Box
+          sx={{
+            display: "grid",
+            gap: 2,
+            gridTemplateColumns: isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 2fr",
+          }}
+        >
           {SKILL_CATEGORIES.slice(0, 2).map((cat, i) => (
-            <SkillCard key={cat.label} category={cat} index={i} shouldReduce={!!shouldReduce} isDark={isDark} />
+            <SkillCard
+              key={cat.label}
+              category={cat}
+              index={i}
+              shouldReduce={!!shouldReduce}
+              isDark={isDark}
+            />
           ))}
           <Box
             sx={{
@@ -416,7 +503,13 @@ const About: React.FC = () => {
             }}
           >
             {SKILL_CATEGORIES.slice(2).map((cat, i) => (
-              <SkillCard key={cat.label} category={cat} index={i + 2} shouldReduce={!!shouldReduce} isDark={isDark} />
+              <SkillCard
+                key={cat.label}
+                category={cat}
+                index={i + 2}
+                shouldReduce={!!shouldReduce}
+                isDark={isDark}
+              />
             ))}
           </Box>
         </Box>
